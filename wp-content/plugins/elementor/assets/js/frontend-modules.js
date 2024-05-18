@@ -1,4 +1,4 @@
-/*! elementor - v3.16.0 - 09-10-2023 */
+/*! elementor - v3.21.0 - 08-05-2024 */
 (self["webpackChunkelementor"] = self["webpackChunkelementor"] || []).push([["frontend-modules"],{
 
 /***/ "../assets/dev/js/editor/utils/is-instanceof.js":
@@ -286,7 +286,7 @@ class NestedTitleKeyboardHandler extends _base.default {
     } else if ('Escape' === event.key) {
       event.preventDefault();
       event.stopPropagation();
-      this.handleContentElementEscapeEvents();
+      this.handleContentElementEscapeEvents(event);
     }
   }
   handleContentElementEscapeEvents() {
@@ -426,6 +426,11 @@ class CarouselHandlerBase extends _baseSwiper.default {
       slideChange: () => {
         this.a11ySetPaginationTabindex();
         this.handleElementHandlers();
+      },
+      init: () => {
+        this.a11ySetWidgetAriaDetails();
+        this.a11ySetPaginationTabindex();
+        this.a11ySetSlideAriaHidden('initialisation');
       }
     };
     this.applyOffsetSettings(elementSettings, swiperOptions, slidesToShow);
@@ -441,7 +446,6 @@ class CarouselHandlerBase extends _baseSwiper.default {
     if (isNestedCarouselInEditMode || !offsetSide || 'none' === offsetSide) {
       return;
     }
-    const offset = this.getOffsetWidth();
     switch (offsetSide) {
       case 'right':
         this.forceSliderToShowNextSlideWhenOnLast(swiperOptions, slidesToShow);
@@ -476,9 +480,6 @@ class CarouselHandlerBase extends _baseSwiper.default {
     if ('yes' === elementSettings.pause_on_hover) {
       this.togglePauseOnHover(true);
     }
-    this.a11ySetWidgetAriaDetails();
-    this.a11ySetPaginationTabindex();
-    this.a11ySetSlideAriaHidden('initialisation');
   }
   bindEvents() {
     this.elements.$swiperArrows.on('keydown', this.onDirectionArrowKeydown.bind(this));
@@ -495,7 +496,7 @@ class CarouselHandlerBase extends _baseSwiper.default {
     elementorFrontend.elements.$window.off('resize');
   }
   onDirectionArrowKeydown(event) {
-    const isRTL = elementorFrontend.config.isRTL,
+    const isRTL = elementorFrontend.config.is_rtl,
       inlineDirectionArrows = ['ArrowLeft', 'ArrowRight'],
       currentKeydown = event.originalEvent.code,
       isDirectionInlineKeydown = -1 !== inlineDirectionArrows.indexOf(currentKeydown),
@@ -586,12 +587,12 @@ class CarouselHandlerBase extends _baseSwiper.default {
     const bulletClass = this.swiper?.params.pagination.bulletClass,
       activeBulletClass = this.swiper?.params.pagination.bulletActiveClass;
     this.getPaginationBullets().forEach(bullet => {
-      if (!bullet.classList.contains(activeBulletClass)) {
+      if (!bullet.classList?.contains(activeBulletClass)) {
         bullet.removeAttribute('tabindex');
       }
     });
     const isDirectionInlineArrowKey = 'ArrowLeft' === event?.code || 'ArrowRight' === event?.code;
-    if (event?.target?.classList.contains(bulletClass) && isDirectionInlineArrowKey) {
+    if (event?.target?.classList?.contains(bulletClass) && isDirectionInlineArrowKey) {
       this.$element.find(`.${activeBulletClass}`).trigger('focus');
     }
   }
@@ -842,7 +843,7 @@ module.exports = elementorModules.ViewModule.extend({
       if (!settingsKeys) {
         settingsKeys = elementorFrontend.config.elements.keys[type] = [];
         jQuery.each(settings.controls, (name, control) => {
-          if (control.frontend_available) {
+          if (control.frontend_available || control.editor_available) {
             settingsKeys.push(name);
           }
         });
@@ -1220,7 +1221,7 @@ function getChildrenWidth(children) {
   return totalWidth;
 }
 function initialScrollPosition(element, direction, justifyCSSVariable) {
-  const isRTL = elementorCommon.config.isRTL;
+  const isRTL = elementorFrontend.config.is_rtl;
   switch (direction) {
     case 'end':
       element.style.setProperty(justifyCSSVariable, 'start');
@@ -1277,7 +1278,6 @@ class ArgsObject extends _instanceType.default {
    * @param {{}}     args
    *
    * @throws {Error}
-   *
    */
   requireArgument(property) {
     let args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.args;
@@ -1296,7 +1296,6 @@ class ArgsObject extends _instanceType.default {
    * @param {{}}     args
    *
    * @throws {Error}
-   *
    */
   requireArgumentType(property, type) {
     let args = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.args;
@@ -1316,7 +1315,6 @@ class ArgsObject extends _instanceType.default {
    * @param {{}}     args
    *
    * @throws {Error}
-   *
    */
   requireArgumentInstance(property, instance) {
     let args = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.args;
@@ -1336,7 +1334,6 @@ class ArgsObject extends _instanceType.default {
    * @param {{}}     args
    *
    * @throws {Error}
-   *
    */
   requireArgumentConstructor(property, type) {
     let args = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.args;
@@ -1864,6 +1861,63 @@ exports["default"] = _default;
 
 /***/ }),
 
+/***/ "../modules/nested-accordion/assets/js/frontend/handlers/nested-accordion-title-keyboard-handler.js":
+/*!**********************************************************************************************************!*\
+  !*** ../modules/nested-accordion/assets/js/frontend/handlers/nested-accordion-title-keyboard-handler.js ***!
+  \**********************************************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var _nestedTitleKeyboardHandler = _interopRequireDefault(__webpack_require__(/*! elementor-assets-js/frontend/handlers/accessibility/nested-title-keyboard-handler */ "../assets/dev/js/frontend/handlers/accessibility/nested-title-keyboard-handler.js"));
+class NestedAccordionTitleKeyboardHandler extends _nestedTitleKeyboardHandler.default {
+  __construct() {
+    super.__construct(...arguments);
+    const config = arguments.length <= 0 ? undefined : arguments[0];
+    this.toggleTitle = config.toggleTitle;
+  }
+  getDefaultSettings() {
+    const parentSettings = super.getDefaultSettings();
+    return {
+      ...parentSettings,
+      selectors: {
+        itemTitle: '.e-n-accordion-item-title',
+        itemContainer: '.e-n-accordion-item > .e-con'
+      },
+      ariaAttributes: {
+        titleStateAttribute: 'aria-expanded',
+        activeTitleSelector: '[aria-expanded="true"]'
+      },
+      datasets: {
+        titleIndex: 'data-accordion-index'
+      }
+    };
+  }
+  handeTitleLinkEnterOrSpaceEvent(event) {
+    this.toggleTitle(event);
+  }
+  handleContentElementEscapeEvents(event) {
+    this.getActiveTitleElement().trigger('focus');
+    this.toggleTitle(event);
+  }
+  handleTitleEscapeKeyEvents(event) {
+    const detailsNode = event?.currentTarget?.parentElement,
+      isOpen = detailsNode?.open;
+    if (isOpen) {
+      this.toggleTitle(event);
+    }
+  }
+}
+exports["default"] = NestedAccordionTitleKeyboardHandler;
+
+/***/ }),
+
 /***/ "../modules/nested-accordion/assets/js/frontend/handlers/nested-accordion.js":
 /*!***********************************************************************************!*\
   !*** ../modules/nested-accordion/assets/js/frontend/handlers/nested-accordion.js ***!
@@ -1878,7 +1932,8 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports["default"] = void 0;
-var _base = _interopRequireDefault(__webpack_require__(/*! elementor/assets/dev/js/frontend/handlers/base */ "../assets/dev/js/frontend/handlers/base.js"));
+var _base = _interopRequireDefault(__webpack_require__(/*! elementor-frontend/handlers/base */ "../assets/dev/js/frontend/handlers/base.js"));
+var _nestedAccordionTitleKeyboardHandler = _interopRequireDefault(__webpack_require__(/*! ./nested-accordion-title-keyboard-handler */ "../modules/nested-accordion/assets/js/frontend/handlers/nested-accordion-title-keyboard-handler.js"));
 class NestedAccordion extends _base.default {
   constructor() {
     super(...arguments);
@@ -1891,9 +1946,16 @@ class NestedAccordion extends _base.default {
         accordionContentContainers: '.e-n-accordion > .e-con',
         accordionItems: '.e-n-accordion-item',
         accordionItemTitles: '.e-n-accordion-item-title',
-        accordionContent: '.e-n-accordion-item > .e-con'
+        accordionItemTitlesText: '.e-n-accordion-item-title-text',
+        accordionContent: '.e-n-accordion-item > .e-con',
+        directAccordionItems: ':scope > .e-n-accordion-item',
+        directAccordionItemTitles: ':scope > .e-n-accordion-item > .e-n-accordion-item-title'
       },
-      default_state: 'expanded'
+      default_state: 'expanded',
+      attributes: {
+        index: 'data-accordion-index',
+        ariaLabelledBy: 'aria-labelledby'
+      }
     };
   }
   getDefaultElements() {
@@ -1911,6 +1973,15 @@ class NestedAccordion extends _base.default {
     if (elementorFrontend.isEditMode()) {
       this.interlaceContainers();
     }
+    this.injectKeyboardHandler();
+  }
+  injectKeyboardHandler() {
+    if ('nested-accordion.default' === this.getSettings('elementName')) {
+      new _nestedAccordionTitleKeyboardHandler.default({
+        $element: this.$element,
+        toggleTitle: this.clickListener.bind(this)
+      });
+    }
   }
   interlaceContainers() {
     const {
@@ -1921,31 +1992,94 @@ class NestedAccordion extends _base.default {
       $accordionItems[index].appendChild(element);
     });
   }
+  linkContainer(event) {
+    const {
+        container,
+        index,
+        targetContainer,
+        action: {
+          type
+        }
+      } = event.detail,
+      view = container.view.$el,
+      id = container.model.get('id'),
+      currentId = this.$element.data('id');
+    if (id === currentId) {
+      const {
+        $accordionItems
+      } = this.getDefaultElements();
+      let accordionItem, contentContainer;
+      switch (type) {
+        case 'move':
+          [accordionItem, contentContainer] = this.move(view, index, targetContainer, $accordionItems);
+          break;
+        case 'duplicate':
+          [accordionItem, contentContainer] = this.duplicate(view, index, targetContainer, $accordionItems);
+          break;
+        default:
+          break;
+      }
+      if (undefined !== accordionItem) {
+        accordionItem.appendChild(contentContainer);
+      }
+      this.updateIndexValues();
+      this.updateListeners(view);
+      elementor.$preview[0].contentWindow.dispatchEvent(new CustomEvent('elementor/elements/link-data-bindings'));
+    }
+  }
+  move(view, index, targetContainer, accordionItems) {
+    return [accordionItems[index], targetContainer.view.$el[0]];
+  }
+  duplicate(view, index, targetContainer, accordionItems) {
+    return [accordionItems[index + 1], targetContainer.view.$el[0]];
+  }
+  updateIndexValues() {
+    const {
+        $accordionContent,
+        $accordionItems
+      } = this.getDefaultElements(),
+      settings = this.getSettings(),
+      itemIdBase = $accordionItems[0].getAttribute('id').slice(0, -1);
+    $accordionItems.each((index, element) => {
+      element.setAttribute('id', `${itemIdBase}${index}`);
+      element.querySelector(settings.selectors.accordionItemTitles).setAttribute(settings.attributes.index, index + 1);
+      element.querySelector(settings.selectors.accordionItemTitles).setAttribute('aria-controls', `${itemIdBase}${index}`);
+      element.querySelector(settings.selectors.accordionItemTitlesText).setAttribute('data-binding-index', index + 1);
+      $accordionContent[index].setAttribute(settings.attributes.ariaLabelledBy, `${itemIdBase}${index}`);
+    });
+  }
+  updateListeners(view) {
+    this.elements.$accordionTitles = view.find(this.getSettings('selectors.accordionItemTitles'));
+    this.elements.$accordionItems = view.find(this.getSettings('selectors.accordionItems'));
+    this.elements.$accordionTitles.on('click', this.clickListener.bind(this));
+  }
   bindEvents() {
     this.elements.$accordionTitles.on('click', this.clickListener.bind(this));
+    elementorFrontend.elements.$window.on('elementor/nested-container/atomic-repeater', this.linkContainer.bind(this));
   }
   unbindEvents() {
     this.elements.$accordionTitles.off();
   }
   clickListener(event) {
     event.preventDefault();
-    const accordionItem = event.currentTarget.parentElement,
-      settings = this.getSettings(),
+    this.elements = this.getDefaultElements();
+    const settings = this.getSettings(),
+      accordionItem = event?.currentTarget?.closest(settings.selectors.accordionItems),
+      accordion = event?.currentTarget?.closest(settings.selectors.accordion),
+      itemSummary = accordionItem.querySelector(settings.selectors.accordionItemTitles),
       accordionContent = accordionItem.querySelector(settings.selectors.accordionContent),
       {
         max_items_expended: maxItemsExpended
       } = this.getElementSettings(),
-      {
-        $accordionTitles,
-        $accordionItems
-      } = this.elements;
+      directAccordionItems = accordion.querySelectorAll(settings.selectors.directAccordionItems),
+      directAccordionItemTitles = accordion.querySelectorAll(settings.selectors.directAccordionItemTitles);
     if ('one' === maxItemsExpended) {
-      this.closeAllItems($accordionItems, $accordionTitles);
+      this.closeAllItems(directAccordionItems, directAccordionItemTitles);
     }
     if (!accordionItem.open) {
-      this.prepareOpenAnimation(accordionItem, event.currentTarget, accordionContent);
+      this.prepareOpenAnimation(accordionItem, itemSummary, accordionContent);
     } else {
-      this.closeAccordionItem(accordionItem, event.currentTarget);
+      this.closeAccordionItem(accordionItem, itemSummary);
     }
   }
   animateItem(accordionItem, startHeight, endHeight, isOpen) {
@@ -1961,6 +2095,7 @@ class NestedAccordion extends _base.default {
     });
     animation.onfinish = () => this.onAnimationFinish(accordionItem, isOpen);
     this.animations.set(accordionItem, animation);
+    accordionItem.querySelector('summary')?.setAttribute('aria-expanded', isOpen);
   }
   closeAccordionItem(accordionItem, accordionItemTitle) {
     const startHeight = `${accordionItem.offsetHeight}px`,
@@ -1983,9 +2118,9 @@ class NestedAccordion extends _base.default {
     this.animations.set(accordionItem, null);
     accordionItem.style.height = accordionItem.style.overflow = '';
   }
-  closeAllItems($items, $titles) {
-    $titles.each((index, title) => {
-      this.closeAccordionItem($items[index], title);
+  closeAllItems(items, titles) {
+    titles.forEach((title, index) => {
+      this.closeAccordionItem(items[index], title);
     });
   }
   getAnimationDuration() {
@@ -2053,6 +2188,7 @@ class NestedTabs extends _base.default {
       selectors: {
         widgetContainer: '.e-n-tabs',
         tabTitle: '.e-n-tab-title',
+        tabTitleText: '.e-n-tab-title-text',
         tabContent: '.e-n-tabs-content > .e-con',
         headingContainer: '.e-n-tabs-heading',
         activeTabContentContainers: '.e-con.e-active'
@@ -2074,6 +2210,7 @@ class NestedTabs extends _base.default {
   getDefaultElements() {
     const selectors = this.getSettings('selectors');
     return {
+      $wdigetContainer: this.findElement(selectors.widgetContainer),
       $tabTitles: this.findElement(selectors.tabTitle),
       $tabContents: this.findElement(selectors.tabContent),
       $headingContainer: this.findElement(selectors.headingContainer)
@@ -2099,6 +2236,7 @@ class NestedTabs extends _base.default {
 
     // Return back original toggle effects
     this.setSettings(originalToggleMethods);
+    this.elements.$wdigetContainer.addClass('e-activated');
   }
   deactivateActiveTab(newTabIndex) {
     const settings = this.getSettings(),
@@ -2185,6 +2323,7 @@ class NestedTabs extends _base.default {
     elementorFrontend.elements.$window.on('resize', this.setTouchMode.bind(this));
     elementorFrontend.elements.$window.on('elementor/nested-tabs/activate', this.reInitSwipers);
     elementorFrontend.elements.$window.on('elementor/nested-elements/activate-by-keyboard', this.changeActiveTabByKeyboard.bind(this));
+    elementorFrontend.elements.$window.on('elementor/nested-container/atomic-repeater', this.linkContainer.bind(this));
   }
   unbindEvents() {
     this.elements.$tabTitles.off();
@@ -2281,7 +2420,7 @@ class NestedTabs extends _base.default {
     }
   }
   changeActiveTabByKeyboard(event, settings) {
-    if (settings.widgetId !== this.getID()) {
+    if (settings.widgetId.toString() !== this.getID().toString()) {
       return;
     }
     this.changeActiveTab(settings.titleIndex, true);
@@ -2333,6 +2472,44 @@ class NestedTabs extends _base.default {
       return;
     }
     this.$element.find(widgetSelector).attr('data-touch-mode', 'false');
+  }
+  linkContainer(event) {
+    const {
+        container
+      } = event.detail,
+      id = container.model.get('id'),
+      currentId = this.$element.data('id');
+    if (id === currentId) {
+      this.updateIndexValues();
+      this.updateListeners();
+      elementor.$preview[0].contentWindow.dispatchEvent(new CustomEvent('elementor/elements/link-data-bindings'));
+    }
+  }
+  updateListeners() {
+    elementorFrontend.elementsHandler.runReadyTrigger(this.$element[0]);
+  }
+  updateIndexValues() {
+    const {
+        $tabContents,
+        $tabTitles
+      } = this.getDefaultElements(),
+      settings = this.getSettings(),
+      itemIdBase = $tabTitles[0].getAttribute('id').slice(0, -1),
+      containerIdBase = $tabContents[0].getAttribute('id').slice(0, -1);
+    $tabTitles.each((index, element) => {
+      const newIndex = index + 1,
+        updatedTabID = itemIdBase + newIndex,
+        updatedContainerID = containerIdBase + newIndex;
+      element.setAttribute('id', updatedTabID);
+      element.setAttribute('style', `--n-tabs-title-order: ${newIndex}`);
+      element.setAttribute('data-tab-index', newIndex);
+      element.querySelector(settings.selectors.tabTitleText).setAttribute('data-binding-index', newIndex);
+      element.querySelector(settings.selectors.tabTitleText).setAttribute('aria-controls', updatedTabID);
+      $tabContents[index].setAttribute('aria-labelledby', updatedTabID);
+      $tabContents[index].setAttribute('data-tab-index', updatedTabID);
+      $tabContents[index].setAttribute('id', updatedContainerID);
+      $tabContents[index].setAttribute('style', `--n-tabs-title-order: ${newIndex}`);
+    });
   }
 }
 exports["default"] = NestedTabs;
