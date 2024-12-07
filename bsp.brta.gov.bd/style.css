@@ -1,0 +1,313 @@
+#wrapper,.ohidden{
+    position:relative
+}
+#wrapper,.feature-box.fbox-bg.fbox-center.fbox-border .fbox-icon,.feature-box.fbox-bg.fbox-center.fbox-outline .fbox-icon,.feature-box.fbox-bg.fbox-center.fbox-plain .fbox-icon,.flex-control-nav li a.flex-active,.flex-control-nav li:hover a,.process-steps li .i-bordered,.tabs.tabs-alt ul.tab-nav li a{
+    background-color:#fff
+}
+#logo img,img{
+    max-width:100%
+}
+#primary-menu.style-3>ul>li.current>a,#top-cart>a>span,#top-social li a:hover{
+    text-shadow:1px 1px 1px rgba(0,0,0,.2)
+}
+#logo,#primary-menu ul li a,#top-search form input,.entry-link,.entry.entry-date-section span,h1,h2,h3,h4,h5,h6{
+    font-family:Raleway,sans-serif
+}
+.owl-carousel,.owl-carousel .owl-item,.owl-theme .owl-controls{
+    -webkit-tap-highlight-color:transparent
+}
+.required{
+    color:red
+}
+dd,dl,dt,li,ol,ul{
+    margin:0;
+    padding:0
+}
+.clear{
+    clear:both;
+    display:block;
+    font-size:0px;
+    height:0;
+    line-height:0;
+    width:100%;
+    overflow:hidden
+}
+::selection{
+    background:#1abc9c;
+    color:#fff;
+    text-shadow:none
+}
+::-moz-selection{
+    background:#1abc9c;
+    color:#fff;
+    text-shadow:none
+}
+::-webkit-selection{
+    background:#1abc9c;
+    color:#fff;
+    text-shadow:none
+}
+:active,:focus{
+    outline:0!important
+}
+a{
+    text-decoration:none!important;
+    color:purple
+}
+.btn-link:focus,.btn-link:hover,.portfolio-desc h3 a,.testimonial.twitter-scroll .testi-meta span a:hover,a:hover{
+    color:#222
+}
+a img{
+    border:none
+}
+#primary-menu .container #top-search form input,.noborder,.sticky-header #top-search form input,iframe{
+    border:none!important
+}
+h1,h2,h3,h4,h5,h6{
+    color:#444;
+    font-weight:600;
+    line-height:1.5;
+    margin:0 0 30px
+}
+h1{
+    font-size:36px
+}
+.heading-block h2,h2{
+    font-size:30px
+}
+.heading-block h1+span,.post-grid .entry-link,h3{
+    font-size:24px
+}
+h4{
+    font-size:18px;
+    font-weight:600
+}
+.countdown-medium .countdown-section,.feature-box .before-heading,.news-carousel .text-overlay-meta,.portfolio-single-content,.postcontent .portfolio-2 .portfolio-desc span,.section>.testimonial .testi-meta,.section>.testimonial .testi-meta span,.single-event .events-meta,.widget .testimonial p,.widget p:not(.lead),h5{
+    font-size:14px
+}
+.bothsidebar .portfolio-3 .portfolio-desc span,.nav-tree ul ul a i.icon-angle-down,.portfolio-6 .portfolio-desc span,.postcontent .portfolio-5 .portfolio-desc span,.postcontent .portfolio-desc span,h6{
+    font-size:12px
+}
+h5,h6{
+    margin-bottom:20px;
+    font-weight:700
+}
+#portfolio-filter li a:hover,#portfolio-navigation a:hover,#primary-menu>div>ul>li.current a,#primary-menu>div>ul>li:hover a,#top-cart a:hover,.breadcrumb a:hover,.btn-link,.comment-content .comment-author a:hover,.entry-meta li a:hover,.entry-title h2 a:hover,.ipost .entry-title h3 a:hover,.ipost .entry-title h4 a:hover,.mpost .entry-title h4 a:hover,.portfolio-desc h3 a:hover,.product-title h3 a:hover,.single-product .product-title h2 a:hover,.spost .entry-title h4 a:hover,h1>span:not(.nocolor),h2>span:not(.nocolor),h3>span:not(.nocolor),h4>span:not(.nocolor),h5>span:not(.nocolor),h6>span:not(.nocolor),ul.tab-nav-lg li.ui-tabs-active a{
+    color:#1abc9c
+}
+.entry-image,address,blockquote,dd,dl,fieldset,form,ol,p,pre,table,ul{
+    margin-bottom:30px
+}
+small{
+    font-family:Lato,sans-serif
+}
+.uppercase{
+    text-transform:uppercase!important
+}
+.tright{
+    text-align:right!important
+}
+.tleft,.top-cart-item-desc a{
+    text-align:left!important
+}
+.fright{
+    float:right!important
+}
+.fleft{
+    float:left!important
+}
+.divcenter,.fnone,.inline-block{
+    float:none!important
+}
+.ohidden{
+    overflow:hidden!important
+}
+#wrapper{
+    float:none;
+    width:1020px;
+    margin:0 auto;
+    box-shadow:0 0 10px rgba(0,0,0,.1);
+    -moz-box-shadow:0 0 10px rgba(0,0,0,.1);
+    -webkit-box-shadow:0 0 10px rgba(0,0,0,.1)
+}
+.double-line,.line{
+    clear:both;
+    position:relative;
+    width:100%;
+    margin:60px 0;
+    border-top:1px solid #eee
+}
+.divcenter,.emptydiv,.noabsolute{
+    position:relative!important
+}
+.line.line-sm{
+    margin:30px 0
+}
+span.middot{
+    display:inline-block;
+    margin:0 5px
+}
+.double-line{
+    border-top:3px double #e5e5e5
+}
+.emptydiv{
+    display:block!important
+}
+.allmargin{
+    margin:50px!important
+}
+.leftmargin{
+    margin-left:50px!important
+}
+.rightmargin{
+    margin-right:50px!important
+}
+.topmargin{
+    margin-top:50px!important
+}
+.bottommargin{
+    margin-bottom:50px!important
+}
+.clear-bottommargin,.footer-stick{
+    margin-bottom:-50px!important
+}
+.allmargin-sm{
+    margin:30px!important
+}
+.leftmargin-sm{
+    margin-left:30px!important
+}
+.rightmargin-sm{
+    margin-right:30px!important
+}
+.topmargin-sm{
+    margin-top:30px!important
+}
+.bottommargin-lg,.bottommargin-sm{
+    margin-bottom:30px!important
+}
+.clear-bottommargin-sm{
+    margin-bottom:-30px!important
+}
+.allmargin-lg{
+    margin:80px!important
+}
+.leftmargin-lg{
+    margin-left:80px!important
+}
+.rightmargin-lg{
+    margin-right:80px!important
+}
+.topmargin-lg{
+    margin-top:80px!important
+}
+.clear-bottommargin-lg,.content-wrap .footer-stick{
+    margin-bottom:-80px!important
+}
+#content .gs-error-result .gs-snippet,#content .gs-no-results-result .gs-snippet,#portfolio.portfolio-full,#portfolio.portfolio-nomargin,#portfolio.portfolio-parallax,.nomargin{
+    margin:0!important
+}
+.noleftmargin{
+    margin-left:0!important
+}
+.norightmargin{
+    margin-right:0!important
+}
+.notopmargin{
+    margin-top:0!important
+}
+#copyrights .col_half,.nobottommargin,.process-steps li .i-circled{
+    margin-bottom:0!important
+}
+.bothsidebar .portfolio-3.portfolio-notitle .portfolio-item:hover .portfolio-overlay a,.header-stick,.postcontent .portfolio-5.portfolio-notitle .portfolio-item:hover .portfolio-overlay a,.postcontent .portfolio-notitle .portfolio-item:hover .portfolio-overlay a{
+    margin-top:-50px!important
+}
+.content-wrap .header-stick{
+    margin-top:-80px!important
+}
+.noleftborder{
+    border-left:none!important
+}
+.norightborder{
+    border-right:none!important
+}
+.notopborder{
+    border-top:none!important
+}
+.nobottomborder{
+    border-bottom:none!important
+}
+.noradius{
+    -webkit-border-radius:0!important;
+    -moz-border-radius:0!important;
+    -ms-border-radius:0!important;
+    -o-border-radius:0!important;
+    border-radius:0!important
+}
+.col-padding{
+    padding:60px
+}
+#primary-menu ul ul a,.notoppadding{
+    padding-top:0!important
+}
+#primary-menu ul ul a,.nobottompadding{
+    padding-bottom:0!important
+}
+#content .cse .gsc-control-cse,#content .gsc-above-wrapper-area,#content .gsc-adBlock,#content .gsc-control-cse,#content .gsc-result,#content .gsc-table-result,#content .gsc-thumbnail-inside,#content .gsc-url-top,#content .gsc-webResult,.nopadding{
+    padding:0!important
+}
+#content .gsc-result-info,.feature-box.fbox-center.fbox-small,.noleftpadding{
+    padding-left:0!important
+}
+.norightpadding{
+    padding-right:0!important
+}
+.noshadow{
+    box-shadow:none!important
+}
+.bothsidebar .portfolio-desc,.hidden,.owl-theme .owl-controls .owl-nav .disabled,body.device-touch.device-xs .portfolio-notitle .portfolio-desc,body.device-touch.device-xs .portfolio-notitle .portfolio-overlay,body.device-touch.device-xxs .portfolio-notitle .portfolio-desc,body.device-touch.device-xxs .portfolio-notitle .portfolio-overlay{
+    display:none!important
+}
+.bothsidebar .portfolio-3 .portfolio-desc,.nothidden{
+    display:block!important
+}
+.inline-block{
+    display:inline-block!important
+}
+.cart-product-price,.cart-product-quantity,.cart-product-subtotal,.center{
+    text-align:center!important
+}
+.divcenter{
+    margin-left:auto!important;
+    margin-right:auto!important
+}
+.bgcolor,.bgcolor #header-wrap{
+    background-color:#1abc9c!important
+}
+#primary-menu ul li .mega-menu-content.style-2>ul>li.mega-menu-title>a:hover,.color,.faqlist li a:hover,.nav-tree li.active>a,.nav-tree li.current>a,.nav-tree li:hover>a,.top-cart-item-desc a:hover{
+    color:#1abc9c!important
+}
+.border-color{
+    border-color:#1abc9c!important
+}
+.nobg{
+    background:0 0!important
+}
+.nobgcolor{
+    background-color:transparent!important
+}
+.bgicon{
+    display:block;
+    position:absolute;
+    bottom:-60px;
+    right:-50px;
+    font-size:210px;
+    color:rgba(0,0,0,.1)
+}
+.bganimate{
+    -webkit-animation:30s linear infinite BgAnimated;
+    -moz-animation:30s linear infinite BgAnimated;
+    -ms-animation:BgAnimated 30s infinite linear;
+    -o-animation:30s linear infinite BgAnimated;
+    animation:30s linear infinite BgAnimated
+}
