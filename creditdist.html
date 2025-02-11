@@ -78,6 +78,55 @@
         .nav-item span {
             font-size: 12px;
         }
+        .minimal-input {
+            border: 1px solid white; /* 1px white border */
+            background-color: transparent;
+            color: white;
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+
+        .minimal-input::placeholder {
+            color: #fff; /* Blue placeholder text */
+        }
+
+        .minimal-input:focus {
+            outline: none;
+            border-color: #007bff; /* Blue outline when focused */
+        }
+
+        .minimal-input:focus::placeholder {
+            color: #000; /* Change placeholder color on focus */
+        }
+        
+        .minimal-select {
+            border: 1px solid white; /* 1px white border */
+            background-color: transparent;
+            color: white;
+            padding: 8px 12px;
+            font-size: 14px;
+            width: 100%; /* Adjust width as needed */
+            appearance: none; /* Remove default dropdown icon */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            outline: none;
+        }
+
+        .minimal-select:focus {
+            border-color: #007bff; /* Blue border on focus */
+            color: #fff; /* Keep text white on focus */
+            background-color: #1e1e1e; /* Slightly darker background on focus */
+        }
+
+        .minimal-select option {
+            background-color: black; /* Set background for options to black */
+            color: white; /* Option text color */
+        }
+
+        .minimal-select:focus option {
+            background-color: #007bff; /* Blue background for options on focus */
+            color: #fff; /* Text color remains white */
+        }
     </style>
 </head>
 <body>
@@ -115,14 +164,14 @@
     <!-- Allocate Credits Form -->
     <div class="form-container">
         <label class="form-label">Select Employee</label>
-        <select class="form-select mb-3">
+        <select class="form-select mb-3 minimal-select">
             <option value="emp1">John Doe (Marketing)</option>
             <option value="emp2">Sarah Lee (Finance)</option>
             <option value="emp3">Michael Brown (IT)</option>
         </select>
 
         <label class="form-label">Credits to Assign</label>
-        <input type="number" class="form-control mb-3" placeholder="Enter amount">
+        <input type="number" class="form-control mb-3 minimal-input" placeholder="Enter amount">
 
         <button class="btn btn-primary btn-custom w-100">Distribute Credits</button>
     </div>
