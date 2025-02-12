@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OfficePay - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css" integrity="sha512-72OVeAaPeV8n3BdZj7hOkaPSEk/uwpDkaGyP4W2jSzAC8tfiO4LMEDWoL3uFp5mcZu+8Eehb4GhZWFwvrss69Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            max-width: 400px;
+        }
+        .logo {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 20px;
+            border-radius: 25px;
+        }
+        .btn-custom {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .carousel-item {
+            text-align: center;
+            padding: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="op-logo.png" alt="OfficePay Logo" class="logo">
+    <h2>Welcome to OfficePay</h2>
+    <p>Seamless corporate payments, simplified.</p>
+
+    <div id="onboardingCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <h3>For Employees</h3>
+                <p>Use OfficePay credits for approved company expenses.</p>
+            </div>
+            <div class="carousel-item">
+                <h3>For Vendors</h3>
+                <p>Accept OfficePay from employees and get paid by organizations.</p>
+            </div>
+            <div class="carousel-item">
+                <h3>For Employers</h3>
+                <p>Manage and track employee expenses securely and easily.</p>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#onboardingCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#onboardingCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+    
+    <button class="btn btn-primary btn-custom">Login</button>
+    <button class="btn btn-outline-light btn-custom">Create an Account</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/js/bootstrap.bundle.min.js" integrity="sha512-Sct/LCTfkoqr7upmX9VZKEzXuRk5YulFoDTunGapYJdlCwA+Rl4RhgcPCLf7awTNLmIVrszTPNUFu4MSesep5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>

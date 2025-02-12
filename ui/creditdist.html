@@ -127,6 +127,13 @@
             background-color: #007bff; /* Blue background for options on focus */
             color: #fff; /* Text color remains white */
         }
+        .animated-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .btn:hover .animated-icon {
+            transform: translateX(5px);
+        }
     </style>
 </head>
 <body>
@@ -163,17 +170,33 @@
 
     <!-- Allocate Credits Form -->
     <div class="form-container">
+        <label class="form-label">Select Department</label>
+        <select class="form-select mb-3 minimal-select">
+            <option value="dep1">Marketing</option>
+            <option value="dep2">Finance</option>
+            <option value="dep3">Sales</option>
+            <option value="dep4">HR</option>
+            <option value="dep5">Business Development</option>
+            <option value="dep6">PR</option>
+            <option value="dep7">IT</option>
+            <option value="dep8">Production</option>
+            <option value="dep9">Legal</option>
+            <option value="dep10">Logistics</option>
+            <option value="dep11">R&D</option>
+            <option value="dep12">Operations</option>
+        </select>
+
         <label class="form-label">Select Employee</label>
         <select class="form-select mb-3 minimal-select">
-            <option value="emp1">John Doe (Marketing)</option>
-            <option value="emp2">Sarah Lee (Finance)</option>
-            <option value="emp3">Michael Brown (IT)</option>
+            <option value="emp1">John Doe</option>
+            <option value="emp2">Sarah Lee</option>
+            <option value="emp3">Michael Brown</option>
         </select>
 
         <label class="form-label">Credits to Assign</label>
         <input type="number" class="form-control mb-3 minimal-input" placeholder="Enter amount">
 
-        <button class="btn btn-primary btn-custom w-100">Distribute Credits</button>
+        <button class="btn btn-primary btn-custom w-100">Distribute Credits <i class="fas fa-circle-arrow-right animated-icon"></i></button>
     </div>
 
     <h5 class="mt-4">Auto-Distribution</h5>
