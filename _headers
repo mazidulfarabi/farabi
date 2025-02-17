@@ -1,0 +1,20 @@
+/index.html
+  Cache-Control: max-age=86400, must-revalidate
+
+/*.css
+  Cache-Control: max-age=31536000, public, immutable
+
+/*.js
+  Cache-Control: max-age=31536000, public, immutable
+
+/*.jpg
+  Cache-Control: max-age=31536000, public, immutable
+
+/*.png
+  Cache-Control: max-age=31536000, public, immutable
+
+/*.svg
+  Cache-Control: max-age=31536000, public, immutable
+
+/*.webp
+  Cache-Control: max-age=31536000, public, immutable
