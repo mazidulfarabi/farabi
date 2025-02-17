@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OfficePay - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css" integrity="sha512-72OVeAaPeV8n3BdZj7hOkaPSEk/uwpDkaGyP4W2jSzAC8tfiO4LMEDWoL3uFp5mcZu+8Eehb4GhZWFwvrss69Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            text-align: center;
+            max-width: 400px;
+        }
+        .card-custom { 
+            background: rgba(46,69,255,0.25);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .btn-custom {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .transaction-list {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .transaction-item {
+            background: #222;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .transaction-item span {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="op-logo.png" alt="OfficePay Logo" class="logo">
+    <h2>Organization Dashboard</h2>
+    
+    <div class="card-custom text-center mb-3">
+        <h4>OfficePay Balance</h4>
+        <h2 class="text-primary">10,000</h2>
+        <span>Updated: Just now</span>
+    </div>
+
+    <button class="btn btn-primary btn-custom">Send Credits</button>
+    <button class="btn btn-outline-light btn-custom">Clear Due Cash</button>
+
+    <div class="transaction-list">
+        <h5>Recent Transactions</h5>
+        <div class="transaction-item">
+            <div>
+                <strong>Credits Sent to John Kid</strong><br>
+                <span>Jan 20, 2025</span>
+            </div>
+            <strong class="text-danger">-500</strong>
+        </div>
+        <div class="transaction-item">
+            <div>
+                <strong>Cash Cleard of ABC Corp</strong><br>
+                <span>Jan 18, 2025</span>
+            </div>
+            <strong class="text-danger">-5,000</strong>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/js/bootstrap.bundle.min.js" integrity="sha512-Sct/LCTfkoqr7upmX9VZKEzXuRk5YulFoDTunGapYJdlCwA+Rl4RhgcPCLf7awTNLmIVrszTPNUFu4MSesep5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>

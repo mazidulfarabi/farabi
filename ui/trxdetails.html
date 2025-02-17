@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OfficePay - Transaction Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css" integrity="sha512-72OVeAaPeV8n3BdZj7hOkaPSEk/uwpDkaGyP4W2jSzAC8tfiO4LMEDWoL3uFp5mcZu+8Eehb4GhZWFwvrss69Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        .btn-custom {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .details-card {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .details-label {
+            font-weight: bold;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="op-logo.png" alt="OfficePay Logo" class="logo">
+    <h2>Transaction Details</h2>
+    <p>View the details of your transaction below.</p>
+
+    <!-- Transaction Info -->
+    <div class="details-card">
+        <div class="mb-3">
+            <span class="details-label">Vendor:</span>
+            <p>ABC Café</p>
+        </div>
+        <div class="mb-3">
+            <span class="details-label">Amount:</span>
+            <p>৳500</p>
+        </div>
+        <div class="mb-3">
+            <span class="details-label">Transaction Type:</span>
+            <p>Payment</p>
+        </div>
+        <div class="mb-3">
+            <span class="details-label">Date:</span>
+            <p>2025-02-09</p>
+        </div>
+        <div class="mb-3">
+            <span class="details-label">Transaction Status:</span>
+            <p>Completed</p>
+        </div>
+        <div class="mb-3">
+            <span class="details-label">Payment Note:</span>
+            <p>Lunch Payment</p>
+        </div>
+        <div class="mb-3">
+            <span class="details-label">Approval Status:</span>
+            <p>Approved</p>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <button class="btn btn-outline-light btn-custom">Back to History</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/js/bootstrap.bundle.min.js" integrity="sha512-Sct/LCTfkoqr7upmX9VZKEzXuRk5YulFoDTunGapYJdlCwA+Rl4RhgcPCLf7awTNLmIVrszTPNUFu4MSesep5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>
