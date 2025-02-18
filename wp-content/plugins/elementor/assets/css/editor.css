@@ -2123,13 +2123,13 @@ body:not(.elementor-device-mobile) .elementor-control.elementor-control-responsi
 }
 
 .elementor-group-control-blur .elementor-slider {
-  background: url("https://mazidulfarabi.netlify.app/wp-content/plugins/elementor/assets/images/blur.png");
+  background: url("./../images/blur.png");
   background-size: cover;
   background-position: center;
 }
 
 .elementor-group-control-contrast .elementor-slider {
-  background: url("https://mazidulfarabi.netlify.app/wp-content/plugins/elementor/assets/images/contrast.png");
+  background: url("./../images/contrast.png");
   background-size: 100% 100%;
 }
 
