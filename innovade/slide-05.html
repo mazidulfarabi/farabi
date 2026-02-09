@@ -20,13 +20,13 @@
                 <div class="highlight-box">
                     <strong>Factor Conditions:</strong> Large cost-effective labor force. Data center costs: $6.9M per MW (lowest in region). Facilitates cloud/server market growth.
                 </div>
-                <div class="highlight-box" style="margin-top: 15px;">
+                <div class="highlight-box">
                     <strong>Demand Conditions:</strong> Global demand. Samsung, Intel, Foxconn create insatiable B2B demand for IT infrastructure. Unique "derivative demand".
                 </div>
-                <div class="highlight-box" style="margin-top: 15px;">
+                <div class="highlight-box">
                     <strong>Related Industries:</strong> Dense ecosystem: logistics, industrial parks, suppliers. 5G/cloud infrastructure (Viettel, VNPT) supports networking gear distribution.
                 </div>
-                <div class="highlight-box" style="margin-top: 15px;">
+                <div class="highlight-box">
                     <strong>Firm Strategy:</strong> Fierce competition (Digiworld, FPT) drives efficiency. Enter as "challenger" with better financing/SLAs.
                 </div>
             </div>
@@ -64,7 +64,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="chart-container medium" style="margin-top: 15px;">
+                <div class="chart-container medium" style="margin-top: auto;">
                     <canvas id="culturalChart"></canvas>
                 </div>
             </div>
@@ -105,7 +105,48 @@
                         backgroundColor: '#10b981',
                     }]
                 },
-                options: chartOptions
+                options: {
+                    ...chartOptions,
+                    plugins: {
+                        ...chartOptions.plugins,
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                color: '#334155',
+                                font: { size: 11 }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Cultural Dimensions Comparison (Hofstede Scale)',
+                            color: '#334155',
+                            font: { size: 12, weight: '600' },
+                            padding: { bottom: 8 }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 10,
+                            ticks: { 
+                                color: '#64748b',
+                                font: { size: 10 },
+                                stepSize: 2
+                            },
+                            grid: { color: '#e2e8f0' }
+                        },
+                        x: {
+                            ticks: { 
+                                color: '#64748b',
+                                font: { size: 10 },
+                                maxRotation: 45,
+                                minRotation: 45
+                            },
+                            grid: { display: false }
+                        }
+                    }
+                }
             });
         }
         initSlideCharts();

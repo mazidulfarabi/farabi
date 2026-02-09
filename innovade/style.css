@@ -59,10 +59,12 @@ body {
 .content-section {
     background: #f8fafc;
     border-radius: 10px;
-    padding: 20px;
+    padding: 18px 20px;
     border: 1px solid #e2e8f0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .content-section.full-width {
@@ -88,15 +90,16 @@ body {
     margin-top: 10px;
     background: white;
     border-radius: 8px;
-    padding: 12px;
+    padding: 10px 12px;
+    flex-shrink: 0;
 }
 
 .chart-container.large {
-    height: 350px;
+    height: 320px;
 }
 
 .chart-container.medium {
-    height: 250px;
+    height: 240px;
 }
 
 .stats-grid {
@@ -262,10 +265,11 @@ body {
 .highlight-box {
     background: #eff6ff;
     border-left: 3px solid #2563eb;
-    padding: 12px;
-    margin: 10px 0;
+    padding: 12px 14px;
+    margin: 8px 0;
     border-radius: 6px;
     font-size: 13px;
+    line-height: 1.5;
 }
 
 .highlight-box strong {

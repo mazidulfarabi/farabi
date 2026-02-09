@@ -28,10 +28,10 @@
                 <div class="highlight-box">
                     <strong>1. Serialization:</strong> ERP system (SAP/Oracle) tracks every serial number import to end-user. Complete visibility enables rapid diversion identification.
                 </div>
-                <div class="highlight-box" style="margin-top: 15px;">
+                <div class="highlight-box">
                     <strong>2. Digital Warranty:</strong> QR-code warranty system. Scan to verify "Genuine Smart Tech" & activate warranty. Kills grey market resale value.
                 </div>
-                <div class="highlight-box" style="margin-top: 15px;">
+                <div class="highlight-box">
                     <strong>3. Strict KYC:</strong> Comprehensive partner screening/monitoring. Immediate blacklist for unauthorized diversions. Regular audits maintain vendor confidence.
                 </div>
             </div>
@@ -41,17 +41,17 @@
                 <div class="highlight-box">
                     <strong>Partner Screening:</strong> Comprehensive due diligence before onboarding. Verify business licenses, financial stability, existing channel relationships. Check for history of grey market involvement.
                 </div>
-                <div class="highlight-box" style="margin-top: 10px;">
+                <div class="highlight-box">
                     <strong>Contractual Controls:</strong> Strict distribution agreements with territorial restrictions, minimum purchase commitments, and penalties for unauthorized diversion. Regular reporting requirements.
                 </div>
-                <div class="highlight-box" style="margin-top: 10px;">
+                <div class="highlight-box">
                     <strong>Monitoring & Reporting:</strong> Real-time tracking of inventory movement. Monthly sales reports with end-user verification. Vendor dashboards showing channel health metrics. Immediate alerts for suspicious patterns.
                 </div>
             </div>
             
             <div class="content-section">
                 <h2 class="section-title">Vendor Assurance Framework</h2>
-                <ul class="bullet-list">
+                <ul class="bullet-list" style="margin-bottom: 10px;">
                     <li><strong>Channel Policing:</strong> Regular audits of partner inventory/sales</li>
                     <li><strong>Geographic Controls:</strong> Restrict to authorized territories only</li>
                     <li><strong>Price Monitoring:</strong> Track pricing to identify unauthorized discounting</li>
@@ -59,7 +59,7 @@
                     <li><strong>Audit Readiness:</strong> Maintain complete records for vendor inspections</li>
                     <li><strong>Legal Enforcement:</strong> Pursue action against grey market operators</li>
                 </ul>
-                <div class="chart-container medium" style="margin-top: 15px;">
+                <div class="chart-container medium" style="margin-top: auto;">
                     <canvas id="assuranceChart"></canvas>
                 </div>
             </div>
@@ -91,12 +91,53 @@
                 data: {
                     labels: ['Serialization', 'Digital Warranty', 'KYC Screening', 'Audits', 'Legal Action'],
                     datasets: [{
-                        label: 'Effectiveness Score',
+                        label: 'Effectiveness Score (1-10)',
                         data: [9, 8, 7, 8, 6],
                         backgroundColor: '#2563eb',
                     }]
                 },
-                options: chartOptions
+                options: {
+                    ...chartOptions,
+                    plugins: {
+                        ...chartOptions.plugins,
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                color: '#334155',
+                                font: { size: 11 }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Anti-Grey Market Measures Effectiveness',
+                            color: '#334155',
+                            font: { size: 13, weight: '600' },
+                            padding: { bottom: 8 }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 10,
+                            ticks: { 
+                                color: '#64748b',
+                                font: { size: 10 },
+                                stepSize: 2
+                            },
+                            grid: { color: '#e2e8f0' }
+                        },
+                        x: {
+                            ticks: { 
+                                color: '#64748b',
+                                font: { size: 10 },
+                                maxRotation: 45,
+                                minRotation: 45
+                            },
+                            grid: { display: false }
+                        }
+                    }
+                }
             });
         }
         initSlideCharts();

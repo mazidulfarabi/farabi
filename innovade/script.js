@@ -17,7 +17,7 @@ const chartOptions = {
             labels: {
                 color: '#334155',
                 font: {
-                    size: 14,
+                    size: 12,
                     family: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
                 }
             },
@@ -29,12 +29,27 @@ const chartOptions = {
             bodyColor: '#ffffff',
             borderColor: 'rgba(255, 255, 255, 0.2)',
             borderWidth: 1,
+        },
+        title: {
+            display: false,
+            color: '#334155',
+            font: {
+                size: 13,
+                weight: '600',
+                family: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+            },
+            padding: {
+                bottom: 8
+            }
         }
     },
     scales: {
         x: {
             ticks: {
                 color: '#64748b',
+                font: {
+                    size: 10
+                }
             },
             grid: {
                 color: '#e2e8f0',
@@ -43,6 +58,9 @@ const chartOptions = {
         y: {
             ticks: {
                 color: '#64748b',
+                font: {
+                    size: 10
+                }
             },
             grid: {
                 color: '#e2e8f0',
