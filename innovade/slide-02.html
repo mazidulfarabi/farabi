@@ -90,9 +90,44 @@
                     <canvas id="philippinesChart"></canvas>
                 </div>
             </div>
+            
+            <div class="content-section full-width">
+                <h2 class="section-title">Vietnam: The Manufacturing Superpower</h2>
+                <div class="two-column-layout">
+                    <div>
+                        <div class="text-content">
+                            <p><strong>Strengths:</strong> GDP 7-8% (fastest-growing). ICT market $165.9B driven by hardware exports. 100% foreign ownership allowed.</p>
+                            <p><strong>Regulatory:</strong> DTI Law 2026 provides tax breaks & streamlined procedures. PDPL requires data localization but trajectory is open.</p>
+                            <p><strong>Market Drivers:</strong> Samsung, Intel, Foxconn create insatiable B2B demand. Manufacturing FDI drives IT infrastructure needs.</p>
+                            <p><strong>Bangladesh Lens:</strong> Bilateral trade $1B+. FTA negotiations active. Similar industrializing trajectory creates natural fit.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="chart-container medium">
+                            <canvas id="vietnamChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div class="slide-number">Slide 2 of 12</div>
+        <div class="part-label">Part 1: Market Analysis & Comparison</div>
+        <div class="nav-funnel">
+            <span class="nav-acronym active">COMPARE</span>
+            <span class="nav-arrow">→</span>
+            <span class="nav-acronym">CAGE</span>
+            <span class="nav-arrow">→</span>
+            <span class="nav-acronym">MES</span>
+            <span class="nav-arrow">→</span>
+            <span class="nav-acronym">CULTURE</span>
+        </div>
+        <div class="progress-container">
+            <div class="progress-segment active"></div>
+            <div class="progress-segment"></div>
+            <div class="progress-segment"></div>
+            <div class="progress-segment"></div>
+        </div>
     </div>
     
     <script src="script.js"></script>
@@ -119,6 +154,19 @@
                     datasets: [{
                         data: [8, 9, 5, 3],
                         backgroundColor: ['#2563eb', '#10b981', '#ef4444', '#f59e0b']
+                    }]
+                },
+                options: chartOptions
+            });
+            
+            const vietCtx = document.getElementById('vietnamChart').getContext('2d');
+            new Chart(vietCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Market Size', 'Growth Rate', 'Regulatory Openness', 'Strategic Fit'],
+                    datasets: [{
+                        data: [10, 10, 9, 9],
+                        backgroundColor: ['#2563eb', '#10b981', '#3b82f6', '#1d4ed8']
                     }]
                 },
                 options: chartOptions

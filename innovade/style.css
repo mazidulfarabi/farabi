@@ -18,7 +18,7 @@ body {
 .slide-container {
     width: 1920px;
     height: 1080px;
-    padding: 40px 60px;
+    padding: 50px 60px 60px 60px;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -53,7 +53,7 @@ body {
     gap: 25px;
     align-items: start;
     overflow: hidden;
-    max-height: calc(1080px - 200px);
+    max-height: calc(1080px - 250px);
 }
 
 .content-section {
@@ -196,11 +196,83 @@ body {
 
 .slide-number {
     position: absolute;
-    bottom: 25px;
-    right: 70px;
-    font-size: 16px;
+    bottom: 10px;
+    right: 60px;
+    font-size: 14px;
     color: #94a3b8;
     font-weight: 500;
+    z-index: 10;
+}
+
+/* Progress Bar System */
+.progress-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: #e2e8f0;
+    display: flex;
+    z-index: 10;
+}
+
+.progress-segment {
+    flex: 1;
+    height: 100%;
+    background: #cbd5e1;
+    transition: background 0.3s ease;
+    position: relative;
+}
+
+.progress-segment.active {
+    background: #2563eb;
+}
+
+.progress-segment.completed {
+    background: #10b981;
+}
+
+/* Navigation Funnel/Acronyms */
+.nav-funnel {
+    position: absolute;
+    top: 20px;
+    right: 60px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 11px;
+    color: #64748b;
+}
+
+.nav-acronym {
+    padding: 4px 8px;
+    background: #f1f5f9;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+    font-weight: 600;
+    color: #475569;
+}
+
+.nav-acronym.active {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+.nav-arrow {
+    color: #94a3b8;
+    font-size: 10px;
+}
+
+/* Part Labels */
+.part-label {
+    position: absolute;
+    bottom: 10px;
+    left: 60px;
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 500;
+    z-index: 10;
 }
 
 .highlight-box {
