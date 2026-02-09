@@ -70,24 +70,18 @@
             <div class="content-section">
                 <h2 class="section-title">Malaysia: The Efficiency Seeker's Trap</h2>
                 <div class="text-content">
-                    <p><strong>Strengths:</strong> Mature economy, 2nd in ASEAN digital readiness. ICT market $28.65B driven by cloud, cybersecurity, big data.</p>
-                    <p><strong>Critical Barrier:</strong> 30% Bumiputera equity requirement for WRT license conflicts with operational control needs.</p>
-                    <p><strong>Market Saturation:</strong> Highly consolidated (Formis, Mesiniaga). Fierce price wars for new entrants.</p>
-                </div>
-                <div class="chart-container medium" style="margin-top: 15px;">
-                    <canvas id="malaysiaChart"></canvas>
+                    <p><strong>Strengths:</strong> Mature economy, 2nd in ASEAN digital readiness. ICT market $28.65B.</p>
+                    <p><strong>Critical Barrier:</strong> 30% Bumiputera equity requirement conflicts with operational control.</p>
+                    <p><strong>Market Saturation:</strong> Highly consolidated. Fierce price wars.</p>
                 </div>
             </div>
             
             <div class="content-section">
                 <h2 class="section-title">Philippines: The Consumption Engine</h2>
                 <div class="text-content">
-                    <p><strong>Strengths:</strong> GDP 5-6%. BPO sector drives ICT hardware demand. Market $30.16B with 11% CAGR.</p>
-                    <p><strong>Challenges:</strong> Complex FINL, high operational costs (logistics, energy). Lower Ease of Doing Business ranking.</p>
-                    <p><strong>Institutional Risk:</strong> Bureaucratic inefficiency, port congestion, corruption challenges.</p>
-                </div>
-                <div class="chart-container medium" style="margin-top: 15px;">
-                    <canvas id="philippinesChart"></canvas>
+                    <p><strong>Strengths:</strong> GDP 5-6%. BPO drives ICT demand. Market $30.16B (11% CAGR).</p>
+                    <p><strong>Challenges:</strong> Complex FINL, high operational costs. Lower Ease of Doing Business.</p>
+                    <p><strong>Institutional Risk:</strong> Bureaucracy, port congestion, corruption.</p>
                 </div>
             </div>
             
@@ -96,10 +90,10 @@
                 <div class="two-column-layout">
                     <div>
                         <div class="text-content">
-                            <p><strong>Strengths:</strong> GDP 7-8% (fastest-growing). ICT market $165.9B driven by hardware exports. 100% foreign ownership allowed.</p>
-                            <p><strong>Regulatory:</strong> DTI Law 2026 provides tax breaks & streamlined procedures. PDPL requires data localization but trajectory is open.</p>
-                            <p><strong>Market Drivers:</strong> Samsung, Intel, Foxconn create insatiable B2B demand. Manufacturing FDI drives IT infrastructure needs.</p>
-                            <p><strong>Bangladesh Lens:</strong> Bilateral trade $1B+. FTA negotiations active. Similar industrializing trajectory creates natural fit.</p>
+                            <p><strong>Strengths:</strong> GDP 7-8% (fastest-growing). ICT market $165.9B. 100% foreign ownership.</p>
+                            <p><strong>Regulatory:</strong> DTI Law 2026 provides tax breaks. PDPL requires data localization.</p>
+                            <p><strong>Market Drivers:</strong> Samsung, Intel, Foxconn create B2B demand. Manufacturing FDI drives IT needs.</p>
+                            <p><strong>Bangladesh Lens:</strong> Bilateral trade $1B+. FTA negotiations. Similar trajectory.</p>
                         </div>
                     </div>
                     <div>
@@ -111,8 +105,6 @@
             </div>
         </div>
         
-        <div class="slide-number">Slide 2 of 12</div>
-        <div class="part-label">Part 1: Market Analysis & Comparison</div>
         <div class="nav-funnel">
             <span class="nav-acronym active">COMPARE</span>
             <span class="nav-arrow">→</span>
@@ -133,32 +125,6 @@
     <script src="script.js"></script>
     <script>
         function initSlideCharts() {
-            const malCtx = document.getElementById('malaysiaChart').getContext('2d');
-            new Chart(malCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Market Size', 'Infrastructure', 'Regulatory Risk', 'Competition'],
-                    datasets: [{
-                        data: [7, 9, 3, 4],
-                        backgroundColor: ['#2563eb', '#10b981', '#ef4444', '#f59e0b']
-                    }]
-                },
-                options: chartOptions
-            });
-            
-            const philCtx = document.getElementById('philippinesChart').getContext('2d');
-            new Chart(philCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Market Size', 'Growth Rate', 'Regulatory Risk', 'Logistics'],
-                    datasets: [{
-                        data: [8, 9, 5, 3],
-                        backgroundColor: ['#2563eb', '#10b981', '#ef4444', '#f59e0b']
-                    }]
-                },
-                options: chartOptions
-            });
-            
             const vietCtx = document.getElementById('vietnamChart').getContext('2d');
             new Chart(vietCtx, {
                 type: 'doughnut',
