@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OfficePay - Transaction History</title>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css" integrity="sha512-72OVeAaPeV8n3BdZj7hOkaPSEk/uwpDkaGyP4W2jSzAC8tfiO4LMEDWoL3uFp5mcZu+8Eehb4GhZWFwvrss69Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 70px 0px 120px 0px !important;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        .btn-custom {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .transaction-card {
+            background-color: #1e1e1e;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .transaction-status {
+            font-size: 14px;
+            color: green;
+        }
+        .transaction-status.failed {
+            color: red;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+        }
+
+.circle {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+        }
+        .circle1 {
+            margin-left:180px;
+            background-image: url('https://placehold.co/64');
+        }
+        .circle2 {
+            margin-left:130px;
+            margin-bottom:20px;
+            background-image: url('https://placehold.co/64');
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #121212;
+            padding: 10px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: white;
+            font-size: 16px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .nav-item:hover {
+            color: #00aaff; /* Change color on hover */
+        }
+
+        /* Active menu item styles */
+        .nav-item.active {
+            color: #00aaff; /* Highlight active item with a color */
+            background-color: rgba(0, 170, 255, 0.1); /* Optional background color for active item */
+            border-radius: 5px;
+        }
+
+        .nav-item span {
+            font-size: 12px;
+        }
+        .minimal-input {
+            border: 1px solid white; /* 1px white border */
+            background-color: transparent;
+            color: white;
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+
+        .minimal-input::placeholder {
+            color: #fff; /* Blue placeholder text */
+        }
+
+        .minimal-input:focus {
+            outline: none;
+            border-color: #007bff; /* Blue outline when focused */
+        }
+
+        .minimal-input:focus::placeholder {
+            color: #000; /* Change placeholder color on focus */
+        }
+        
+        .minimal-select {
+            border: 1px solid white; /* 1px white border */
+            background-color: transparent;
+            color: white;
+            padding: 8px 12px;
+            font-size: 14px;
+            width: 100%; /* Adjust width as needed */
+            appearance: none; /* Remove default dropdown icon */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            outline: none;
+        }
+
+        .minimal-select:focus {
+            border-color: #007bff; /* Blue border on focus */
+            color: #fff; /* Keep text white on focus */
+            background-color: #1e1e1e; /* Slightly darker background on focus */
+        }
+
+        .minimal-select option {
+            background-color: black; /* Set background for options to black */
+            color: white; /* Option text color */
+        }
+
+        .minimal-select:focus option {
+            background-color: #007bff; /* Blue background for options on focus */
+            color: #fff; /* Text color remains white */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Fixed Header -->
+<div class="fixed-top text-light p-3 d-flex align-items-center justify-content-between" style="background: rgba(12, 64, 148, 1);">
+    <!-- Back Button (Wider) -->
+    <button class="btn btn-outline-light btn-sm" onclick="history.back()">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <!-- OfficePay Title -->
+    <h4 class="m-0 text-center flex-grow-1">OfficePay</h4>
+
+    <!-- Profile Icon -->
+    <button class="btn btn-outline-light btn-sm">
+        <i class="fas fa-user"></i>
+    </button>
+</div>
+
+<!-- Spacer to Prevent Overlapping -->
+<div style="height: 40px;"></div>
+
+<div class="container">
+<div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+    <h2>Transaction History</h2>
+    <p>View your past transactions</p>
+
+    <div class="mb-3">
+        <label class="form-label">Filter by Type</label>
+        <select class="form-control minimal-select">
+            <option value="">All Transactions</option>
+            <option value="payment">Payments</option>
+            <option value="request">Requests</option>
+            <option value="cash_transfer">Cash Transfers</option>
+        </select>
+    </div>
+
+    <!-- Sample Transactions -->
+    <div class="transaction-card">
+        <div class="d-flex justify-content-between">
+            <h6>Payment to ABC Café</h6>
+            <p>৳500</p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <span>2025-02-09</span>
+            <span class="transaction-status">Completed</span>
+        </div>
+    </div>
+
+    <div class="transaction-card">
+        <div class="d-flex justify-content-between">
+            <h6>Request for Travel Expenses</h6>
+            <p>৳2000</p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <span>2025-02-08</span>
+            <span class="transaction-status failed">Declined</span>
+        </div>
+    </div>
+
+    <div class="transaction-card">
+        <div class="d-flex justify-content-between">
+            <h6>Payment to XYZ Stationery</h6>
+            <p>৳300</p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <span>2025-02-07</span>
+            <span class="transaction-status">Completed</span>
+        </div>
+    </div>
+
+    <button class="btn btn-outline-light btn-custom">Back to Dashboard</button>
+</div>
+
+<footer class="bottom-nav">
+    <nav>
+        <a href="#" class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-wallet"></i>
+            <span>Wallet</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-qrcode"></i>
+            <span>Scan</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-history"></i>
+            <span>Transactions</span>
+        </a>        
+    </nav>
+</footer>
+
+<script>
+    const navItems = document.querySelectorAll('.nav-item');
+
+navItems.forEach(item => {
+    item.addEventListener('click', function() {
+        navItems.forEach(nav => nav.classList.remove('active')); // Remove active class from all items
+        this.classList.add('active'); // Add active class to clicked item
+    });
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/js/bootstrap.bundle.min.js" integrity="sha512-Sct/LCTfkoqr7upmX9VZKEzXuRk5YulFoDTunGapYJdlCwA+Rl4RhgcPCLf7awTNLmIVrszTPNUFu4MSesep5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

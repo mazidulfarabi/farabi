@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OfficePay - Purchase Credits</title>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css" integrity="sha512-72OVeAaPeV8n3BdZj7hOkaPSEk/uwpDkaGyP4W2jSzAC8tfiO4LMEDWoL3uFp5mcZu+8Eehb4GhZWFwvrss69Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body { 
+            background-color: #121212; 
+            color: white; 
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+            padding: 70px 0px 120px 0px !important;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .card-custom { 
+            background: rgba(46,69,255,0.25); 
+            padding: 15px; 
+            border-radius: 10px; 
+        }
+        .container {
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        .icon-btn { 
+            background: none; 
+            border: 1px solid rgb(255, 255, 255);
+            border-radius: 2px;
+            color: #438ae6; 
+            font-size: 22px; 
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+        }
+
+.circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+        }
+        .circle1 {
+            margin-left:140px;
+            margin-bottom:20px;
+            background-image: url('https://placehold.co/100');
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #121212;
+            padding: 10px 0;
+            z-index: 99999;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: white;
+            font-size: 16px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .nav-item:hover {
+            color: #00aaff; /* Change color on hover */
+        }
+
+        /* Active menu item styles */
+        .nav-item.active {
+            color: #00aaff; /* Highlight active item with a color */
+            background-color: rgba(0, 170, 255, 0.1); /* Optional background color for active item */
+            border-radius: 5px;
+        }
+
+        .nav-item span {
+            font-size: 12px;
+        }
+        .minimal-input {
+            border: 1px solid white; /* 1px white border */
+            background-color: transparent;
+            color: white;
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+
+        .minimal-input::placeholder {
+            color: #fff; /* Blue placeholder text */
+        }
+
+        .minimal-input:focus {
+            outline: none;
+            border-color: #007bff; /* Blue outline when focused */
+        }
+
+        .minimal-input:focus::placeholder {
+            color: #000; /* Change placeholder color on focus */
+        }
+        
+        .minimal-select {
+            border: 1px solid white; /* 1px white border */
+            background-color: transparent;
+            color: white;
+            padding: 8px 12px;
+            font-size: 14px;
+            width: 100%; /* Adjust width as needed */
+            appearance: none; /* Remove default dropdown icon */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            outline: none;
+        }
+
+        .minimal-select:focus {
+            border-color: #007bff; /* Blue border on focus */
+            color: #fff; /* Keep text white on focus */
+            background-color: #1e1e1e; /* Slightly darker background on focus */
+        }
+
+        .minimal-select option {
+            background-color: black; /* Set background for options to black */
+            color: white; /* Option text color */
+        }
+
+        .minimal-select:focus option {
+            background-color: #007bff; /* Blue background for options on focus */
+            color: #fff; /* Text color remains white */
+        }
+        .animated-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .btn:hover .animated-icon {
+            transform: translateX(5px);
+        }
+
+        .pricing-card {
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Fixed Header -->
+<div class="fixed-top text-light p-3 d-flex align-items-center justify-content-between" style="background: rgba(12, 64, 148, 1);">
+    <!-- Back Button (Wider) -->
+    <button class="btn btn-outline-light btn-sm" onclick="history.back()">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <!-- OfficePay Title -->
+    <h4 class="m-0 text-center flex-grow-1">OfficePay</h4>
+
+    <!-- Profile Icon -->
+    <button class="btn btn-outline-light btn-sm">
+        <i class="fas fa-user"></i>
+    </button>
+</div>
+
+<!-- Spacer to Prevent Overlapping -->
+<div style="height: 40px;"></div>
+
+<div class="container">
+<div class="circle circle1"></div>
+
+
+<h2 class="text-center mb-4">Choose Your Credit Plan</h2>
+
+
+    <!-- Total Available Credits -->
+    <div class="card-custom text-center mb-4">
+        <h5>Available Company Credits</h5>
+        <h2 class="text-primary">50,000</h2>
+    </div>
+
+            <!-- Free Plan -->
+            <div>
+                <div class="pricing-card">
+                    <h4>Free at <b>$0</b></h4>
+                    <p>Up to <b>120,000</b> Credits/Year</p>
+                    <p>Up to <b>5 employees</b></p>
+                    <button class="btn btn-primary">Continue</button>
+                </div>
+            </div>
+            <!-- Pro Plan -->
+            <div>
+                <div class="pricing-card">
+                    <h4>Pro at <b>$75</b></h4>
+                    <p>Up to <b>1,200,000</b> Credits/Year</p>
+                    <p>Up to <b>50 employees</b></p>
+                    <div id="paypal-button-container-P-2VR33869W8738620AM6ZW2UI"></div>
+<script src="https://www.paypal.com/sdk/js?client-id=AUokR6NtlyOa69GOEBz4Nt2UieTC5NuEd8u1X1VQw5dAR9iPDtfM9kFpbpYRCQV_N7v6vYrivNJmaFtR&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<script>
+  paypal.Buttons({
+      style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'paypal'
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-2VR33869W8738620AM6ZW2UI'
+        });
+      },
+      onApprove: function(data, actions) {
+        alert(data.subscriptionID); // You can add optional success message for the subscriber here
+      }
+  }).render('#paypal-button-container-P-2VR33869W8738620AM6ZW2UI'); // Renders the PayPal button
+</script>
+                </div>
+            </div>
+
+
+
+
+            <!-- Enterprise Plan -->
+            <div>
+                <div class="pricing-card">
+                    <h4>Enterprise at <b>$250</b></h4>
+                    <p>Up to <b>100,000,000</b> Credits/Year</p>
+                    <p>No Limit on employees</p>
+                    <div id="paypal-button-container-P-8ER81241U4870835VM6ZW4DA" style="z-index: -100;"></div>
+<script>
+  paypal.Buttons({
+      style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'subscribe'
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-8ER81241U4870835VM6ZW4DA'
+        });
+      },
+      onApprove: function(data, actions) {
+        alert(data.subscriptionID); // You can add optional success message for the subscriber here
+      }
+  }).render('#paypal-button-container-P-8ER81241U4870835VM6ZW4DA'); // Renders the PayPal button
+</script>
+                </div>
+            </div>
+
+
+
+        
+        <!-- Payment Section -->
+        <div class="mt-5 text-center">
+            <h4>Complete Your Payment</h4>
+            Pay for the yearly plan you want to buy and then enter the TRXN ID to finalize</p>
+            <form>
+                <div class="mb-3">
+                    <input type="text" class="form-control minimal-input" placeholder="Transaction ID" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Yes, I have paid.</button>
+            </form>
+        </div>
+
+
+
+
+
+</div>
+<footer class="bottom-nav">
+    <nav>
+        <a href="#" class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-wallet"></i>
+            <span>Wallet</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-qrcode"></i>
+            <span>Scan</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-history"></i>
+            <span>Transactions</span>
+        </a>        
+    </nav>
+</footer>
+
+<script>
+    const navItems = document.querySelectorAll('.nav-item');
+
+navItems.forEach(item => {
+    item.addEventListener('click', function() {
+        navItems.forEach(nav => nav.classList.remove('active')); // Remove active class from all items
+        this.classList.add('active'); // Add active class to clicked item
+    });
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/js/bootstrap.bundle.min.js" integrity="sha512-Sct/LCTfkoqr7upmX9VZKEzXuRk5YulFoDTunGapYJdlCwA+Rl4RhgcPCLf7awTNLmIVrszTPNUFu4MSesep5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>
