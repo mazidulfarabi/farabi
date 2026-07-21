@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="images/hero.jpeg" as="image" fetchpriority="high">
+  <link rel="preload" href="images/thumb1.png" as="image">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -80,6 +82,59 @@
     }
     .nav-pill:hover { opacity: 0.88; }
     .nav-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--ink); }
+
+    /* ── Hero ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 3rem;
+      align-items: center;
+      padding: 2.5rem 0 3.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 600; letter-spacing: -0.03em; line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .hero h1 em { font-style: normal; color: var(--ink-2); }
+    .hero-lead {
+      color: var(--muted); font-size: 0.9375rem; line-height: 1.65;
+      max-width: 520px; margin-bottom: 1.5rem;
+    }
+    .hero-social {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    .social-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.5rem 1rem; border-radius: 8px;
+      border: 1px solid var(--line); background: var(--surface);
+      color: var(--ink-2); text-decoration: none;
+      font-size: 0.8125rem; font-weight: 500;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .social-btn:hover {
+      border-color: var(--line-strong); color: var(--ink); background: var(--surface-2);
+    }
+    .hero-photo {
+      width: 100%; aspect-ratio: 4/5;
+      object-fit: cover; border-radius: var(--radius);
+      border: 1px solid var(--line);
+    }
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2rem 0 2.5rem;
+      }
+      .hero-photo { max-width: 240px; margin: 0 auto; display: block; }
+    }
 
     @media (max-width: 768px) {
       .nav-toggle { display: block; }
@@ -159,6 +214,60 @@
       padding: 0;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Certificate carousel ── */
+    .cert-carousel {
+      padding: 2rem 0 3rem;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 0.5rem;
+    }
+    .cert-carousel__label {
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+    }
+    .cert-track-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+    .cert-track {
+      display: flex;
+      transition: transform 0.45s var(--ease);
+    }
+    .cert-slide {
+      flex: 0 0 100%;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.25rem;
+      min-height: 220px;
+    }
+    .cert-slide img {
+      max-width: 100%; max-height: 320px;
+      object-fit: contain; border-radius: 6px;
+    }
+    .cert-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--line-strong); background: rgba(9,9,11,0.75);
+      color: var(--ink); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+      backdrop-filter: blur(8px);
+    }
+    .cert-nav:hover { background: rgba(255,255,255,0.1); border-color: var(--muted); }
+    .cert-nav--prev { left: 0.75rem; }
+    .cert-nav--next { right: 0.75rem; }
+    .cert-dots {
+      display: flex; justify-content: center; gap: 0.4rem;
+      margin-top: 0.85rem;
+    }
+    .cert-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      border: none; background: var(--line-strong); cursor: pointer;
+      padding: 0; transition: background 0.2s, transform 0.2s;
+    }
+    .cert-dot.active { background: var(--ink); transform: scale(1.2); }
 
     /* ── Gallery intro ── */
     .gallery-intro {
@@ -388,7 +497,7 @@
       <div class="nav-right">
         <ul class="nav-links" id="navLinks">
           <li><a href="#gallery">Gallery</a></li>
-          <li><a href="/work">View Work</a></li>
+          <li><a href="#highlights">Highlights</a></li>
           <li><a href="/gallery.html">All photos</a></li>
         </ul>
         <a class="nav-pill" href="mailto:mhfarabi09@gmail.com">Contact</a>
@@ -398,26 +507,19 @@
       </div>
     </nav>
 
-    <section class="video-showcase" id="highlights" aria-label="Video highlights">
-      <p class="video-showcase__label">Highlights</p>
-      <div class="video-grid" id="videoGrid"></div>
-    </section>
-
-    <!--  
     <header class="hero">
       <div>
-        <div class="hero-badge">Leadership · Startup · Impact</div>
+        <div class="hero-badge">Leadership · Competitions · Impact</div>
         <h1>Selected moments from a journey of <em>building bold</em></h1>
         <p class="hero-lead">A connected visual archive — from Breaking Brand grand finales and Entrepret championships to campus leadership, competitions, and the people who made it all happen.</p>
+        <div class="hero-social">
+          <a class="social-btn" href="https://www.linkedin.com/in/mazidulfarabi/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="social-btn" href="mailto:mhfarabi09@gmail.com">Mail</a>
+          <a class="social-btn" href="https://github.com/mazidulfarabi/" target="_blank" rel="noopener">GitHub</a>
+        </div>
       </div>
-      <div class="hero-stats">
-        <div class="hero-stat"><strong>1,700+</strong><span>BB26 participants nationwide</span></div>
-        <div class="hero-stat"><strong>#1</strong><span>Entrepret S3 · 616 teams</span></div>
-        <div class="hero-stat"><strong>84</strong><span>Executive committee led</span></div>
-        <div class="hero-stat"><strong>40+</strong><span>Corporate sponsors secured</span></div>
-      </div>
+      <img class="hero-photo" src="images/hero.jpeg" alt="Md. Mazidul Haque Farabi" width="280" height="350" fetchpriority="high">
     </header>
-    -->
 
     <div class="gallery-intro" id="gallery">
       <h2>Every chapter, one continuous story</h2>
@@ -425,14 +527,35 @@
     </div>
 
     <div class="filters" id="filters"></div>
+
+    <section class="video-showcase" id="highlights" aria-label="Video highlights">
+      <p class="video-showcase__label">Highlights</p>
+      <div class="video-grid" id="videoGrid"></div>
+    </section>
+
+    <section class="cert-carousel" id="certificates" aria-label="Certificates">
+      <p class="cert-carousel__label">Certificates</p>
+      <div class="cert-track-wrap">
+        <button class="cert-nav cert-nav--prev" id="certPrev" aria-label="Previous certificate">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="cert-track" id="certTrack"></div>
+        <button class="cert-nav cert-nav--next" id="certNext" aria-label="Next certificate">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+      <div class="cert-dots" id="certDots"></div>
+    </section>
+
     <div class="gallery" id="galleryFeed"></div>
 
     <section class="footer-cta">
       <h2>Let's connect.</h2>
       <p>Open to collaborations, interviews, and conversations about startups, marketing, and student-led innovation in Bangladesh.</p>
       <div class="footer-actions">
-        <a class="btn-light" href="mailto:mhfarabi09@gmail.com">mhfarabi09@gmail.com</a>
+        <a class="btn-light" href="mailto:mhfarabi09@gmail.com">Mail</a>
         <a class="btn-outline" href="https://www.linkedin.com/in/mazidulfarabi/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn-outline" href="https://github.com/mazidulfarabi/" target="_blank" rel="noopener">GitHub</a>
         <a class="btn-outline" href="/gallery.html">Full photo gallery</a>
       </div>
     </section>
@@ -455,18 +578,24 @@
   </div>
 
   <script>
-    const img = n => `images/${n}.jfif`;
+    const img = n => typeof n === 'string' ? `images/${n}` : `images/${n}.jfif`;
 
     const SHOWCASE_VIDEOS = [
-      { src: 'images/Vid1.mp4', poster: img(41) },
-      { src: 'images/vid2.mp4', poster: img(34) },
-      { src: 'images/vid3.mp4', poster: img(30) },
-      { src: 'images/vid4.mp4', poster: img(17) }
+      { src: 'images/Vid1.mp4', poster: 'images/thumb1.png' },
+      { src: 'images/vid2.mp4', poster: 'images/thumb2.png' },
+      { src: 'images/vid3.mp4', poster: 'images/thumb3.png' },
+      { src: 'images/vid4.mp4', poster: 'images/thumb4.png' }
     ];
 
-    /* ── Lazy video showcase (loads on click only) ── */
+    const CERTIFICATES = [
+      'images/cert1.png', 'images/cert2.png', 'images/cert3.png',
+      'images/cert4.png', 'images/cert5.png', 'images/cert6.png'
+    ];
+
+    /* ── Video showcase (preloads in background while user reads above) ── */
     const videoGrid = document.getElementById('videoGrid');
     let activeVideo = null;
+    const videosReady = new Set();
 
     SHOWCASE_VIDEOS.forEach((v, i) => {
       videoGrid.innerHTML += `
@@ -476,6 +605,24 @@
           <div class="video-item__overlay"><span class="video-item__play">▶</span></div>
         </div>`;
     });
+
+    const videosStarted = new Set();
+
+    function preloadShowcaseVideos() {
+      SHOWCASE_VIDEOS.forEach((meta, i) => {
+        if (videosStarted.has(i)) return;
+        videosStarted.add(i);
+        const vid = document.createElement('video');
+        vid.preload = 'auto';
+        vid.muted = true;
+        vid.playsInline = true;
+        vid.src = meta.src;
+        vid.addEventListener('canplaythrough', () => videosReady.add(i), { once: true });
+        vid.load();
+      });
+    }
+
+    preloadShowcaseVideos();
 
     function pauseAllVideos(except) {
       document.querySelectorAll('.video-item').forEach(item => {
@@ -500,13 +647,16 @@
         item.classList.add('is-loading');
         vid.src = meta.src;
         vid.dataset.loaded = '1';
-        await new Promise((resolve, reject) => {
-          vid.addEventListener('loadeddata', resolve, { once: true });
-          vid.addEventListener('error', reject, { once: true });
-        }).catch(() => {
-          item.classList.remove('is-loading');
-          return;
-        });
+        if (!videosReady.has(idx)) {
+          await new Promise((resolve, reject) => {
+            vid.addEventListener('canplay', resolve, { once: true });
+            vid.addEventListener('error', reject, { once: true });
+            vid.load();
+          }).catch(() => {
+            item.classList.remove('is-loading');
+            return;
+          });
+        }
         item.classList.remove('is-loading');
       }
 
@@ -543,6 +693,32 @@
       });
     });
 
+    /* ── Certificate carousel ── */
+    const certTrack = document.getElementById('certTrack');
+    const certDots = document.getElementById('certDots');
+    let certIndex = 0;
+
+    CERTIFICATES.forEach((src, i) => {
+      certTrack.innerHTML += `
+        <div class="cert-slide">
+          <img src="${src}" alt="Certificate ${i + 1}" loading="${i === 0 ? 'eager' : 'lazy'}" decoding="async">
+        </div>`;
+      certDots.innerHTML += `<button class="cert-dot${i === 0 ? ' active' : ''}" data-index="${i}" aria-label="Go to certificate ${i + 1}"></button>`;
+    });
+
+    function goToCert(i) {
+      certIndex = (i + CERTIFICATES.length) % CERTIFICATES.length;
+      certTrack.style.transform = `translateX(-${certIndex * 100}%)`;
+      certDots.querySelectorAll('.cert-dot').forEach((d, j) => d.classList.toggle('active', j === certIndex));
+    }
+
+    document.getElementById('certPrev').addEventListener('click', () => goToCert(certIndex - 1));
+    document.getElementById('certNext').addEventListener('click', () => goToCert(certIndex + 1));
+    certDots.addEventListener('click', e => {
+      const dot = e.target.closest('.cert-dot');
+      if (dot) goToCert(+dot.dataset.index);
+    });
+
     const POSTS = [
       {
         id: 'bb26', num: '01',
@@ -558,7 +734,7 @@
       {
         id: 'kormo', num: '02',
         title: 'Entrepret Season 3 Champion — Team Kormo',
-        category: 'startup', catLabel: 'Startup / Entrepreneurship / competition',
+        category: 'competition', catLabel: 'Competition / Entrepreneurship',
         date: '1 month ago',
         images: [34, 37, 36, 35, 38, 33, 32],
         likes: 75, comments: 4,
@@ -569,7 +745,7 @@
       {
         id: 'jufbc', num: '03',
         title: 'Mentorship Session — Biztigation by JUFBC',
-        category: 'speaking', catLabel: 'Speaking / Session',
+        category: 'leadership', catLabel: 'Leadership / Session',
         date: '7 months ago',
         images: [31],
         likes: 16, comments: 0,
@@ -590,10 +766,10 @@
       },
       {
         id: 'armygolf', num: '05',
-        title: 'Intra Competition Finale at Army Golf Club',
+        title: 'Intra Competition Finale & AGM at Army Golf Club',
         category: 'leadership', catLabel: 'Leadership / IBA-JU BC',
         date: '8 months ago',
-        images: [25, 28, 27, 26, 29, 24, 23],
+        images: ['ext1.jpg', 28, 'ext2.jpg', 26, 29, 24, 23],
         likes: 55, comments: 7,
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['Army Golf Club', 'CXO-level judges', 'AGM 2025'],
@@ -613,7 +789,7 @@
       {
         id: 'tedx', num: '07',
         title: 'TEDx Jahangirnagar University',
-        category: 'speaking', catLabel: 'TEDx',
+        category: 'leadership', catLabel: 'Leadership / TEDx',
         date: '1 year ago',
         images: [17],
         likes: 19, comments: 0,
@@ -634,15 +810,15 @@
       },
       {
         id: 'bb25', num: '09',
-        title: 'Breaking Brand 2025 — General Manager',
-        category: 'leadership', catLabel: 'Leadership / Breaking Brand',
+        title: 'Breaking Brand 2025 — General Manager & Branding Lead',
+        category: 'leadership', catLabel: 'Leadership / Breaking Brand & IBA-JU BC',
         date: '1 year ago',
         video: 'images/video.mp4',
-        images: [],
-        likes: 25, comments: 2,
+        images: [12],
+        likes: 34, comments: 8,
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
-        chips: ['400+ teams', '30+ sponsors', '250K+ reach', 'React judging portal'],
-        text: 'Led outreach for 400+ team registrations with 1,600+ participants from 20+ universities. Managed 30+ sponsors, hosted the grand finale at Six Seasons Hotel in front of 200+ attendees, and built a judging portal with JavaScript, React, and Supabase — while ibajubc.org reached 200,000+ visitors.'
+        chips: ['400+ teams', '30+ sponsors', '250K+ reach', 'React judging portal', 'Branding & Digital GM'],
+        text: 'Led outreach for 400+ team registrations with 1,600+ participants from 20+ universities as General Manager of Breaking Brand 2025. Managed 30+ sponsors, hosted the grand finale at Six Seasons Hotel in front of 200+ attendees, and built a judging portal with JavaScript, React, and Supabase — while ibajubc.org reached 200,000+ visitors. Also stepped into the role of General Manager of Branding and Digital at IBA-JU Business Club Official, driving innovation and elevating the club alongside an incredible team.'
       },
       {
         id: 'bom24', num: '10',
@@ -656,18 +832,7 @@
         text: 'At BAT HO for the session on Battle of Minds 2024.'
       },
       {
-        id: 'gm-branding', num: '11',
-        title: 'General Manager — Branding & Digital',
-        category: 'leadership', catLabel: 'Leadership / IBA-JU BC',
-        date: '1 year ago',
-        images: [12],
-        likes: 9, comments: 6,
-        link: 'https://www.linkedin.com/in/mazidulfarabi/',
-        chips: ['Branding & Digital GM'],
-        text: 'Stepped into the role of General Manager of Branding and Digital at IBA-JU Business Club Official — driving innovation and elevating the club to new heights alongside an incredible team.'
-      },
-      {
-        id: 'bb24', num: '12',
+        id: 'bb24', num: '11',
         title: 'Breaking Brand 2024 — Team Victory',
         category: 'leadership', catLabel: 'Leadership / Breaking Brand',
         date: '2 years ago',
@@ -678,9 +843,9 @@
         text: 'Teamwork and cross-functional collaboration powered Breaking Brand 2024 — a national brand-building business case competition that exceeded expectations according to all judges and a huge majority of participants. Here\'s to the coolest team ever.'
       },
       {
-        id: 'commuite', num: '13',
+        id: 'commuite', num: '12',
         title: 'Host — Commuite Episode 02',
-        category: 'speaking', catLabel: 'Speaking / Fintech',
+        category: 'leadership', catLabel: 'Leadership / Fintech',
         date: '2 years ago',
         images: [8, 9],
         likes: 14, comments: 0,
@@ -689,7 +854,7 @@
         text: 'Hosted Commuite Episode 02 organized by the communication club of IBA-JU — Communic — learning valuable Mobile Financial Services and Fintech insights from Md Asiful Islam, Merchant Development Manager at bKash Limited.'
       },
       {
-        id: 'iut', num: '14',
+        id: 'iut', num: '13',
         title: 'National Business Case — IUT',
         category: 'competition', catLabel: 'Competition / Business Case',
         date: '2 years ago',
@@ -700,9 +865,9 @@
         text: 'With the team while pitching our idea in front of judges at a national business case competition at IUT — planning and creating the solution to a case related to the problems of the automotive industry in Bangladesh.'
       },
       {
-        id: 'freshers', num: '15',
+        id: 'freshers', num: '14',
         title: "Freshers' Reception — IBA-JU 32nd Batch",
-        category: 'speaking', catLabel: 'Speaking / Hosting',
+        category: 'leadership', catLabel: 'Leadership / Hosting',
         date: '2 years ago',
         images: [5, 6],
         likes: 4, comments: 2,
@@ -711,7 +876,7 @@
         text: "Hosted the Freshers' for the 32nd Batch at IBA-JU alongside Fatin Anjum Aishee on 5th March, 2024 — the second event hosted at IBA-JU, with a long way to go and a lot still to learn."
       },
       {
-        id: 'bom23', num: '16',
+        id: 'bom23', num: '15',
         title: 'Battle of Minds 2023',
         category: 'competition', catLabel: 'Competition / BAT',
         date: '2 years ago',
@@ -722,7 +887,7 @@
         text: 'Battle of Minds 2023 at BAT.'
       },
       {
-        id: 'hult', num: '17',
+        id: 'hult', num: '16',
         title: 'Hult Prize 2023 — Mumbai Summit',
         category: 'competition', catLabel: 'Competition / Hult Prize',
         date: '3 years ago',
@@ -735,28 +900,28 @@
     ];
 
     const FILTERS = [
-      { id: 'all', label: 'All' },
       { id: 'leadership', label: 'Leadership' },
-      { id: 'startup', label: 'Startup' },
-      { id: 'competition', label: 'Competitions' },
-      { id: 'speaking', label: 'Speaking' }
+      { id: 'competition', label: 'Competitions' }
     ];
 
     /* ── Render media (vertical stack) ── */
     function renderMedia(post) {
+      let html = '';
+
       if (post.video) {
-        return `
+        html += `
           <div class="entry-media entry-media--video" data-video>
-            <video muted preload="metadata" poster="images/10.jfif" playsinline>
+            <video muted preload="metadata" poster="${post.images?.length ? img(post.images[0]) : 'images/thumb1.png'}" playsinline>
               <source src="${post.video}" type="video/mp4">
             </video>
             <div class="entry-media__play"><span>▶</span></div>
           </div>`;
       }
-      if (!post.images || !post.images.length) return '';
+
+      if (!post.images || !post.images.length) return html;
 
       const [hero, ...rest] = post.images;
-      let html = `<div class="entry-media">`;
+      html += `<div class="entry-media">`;
       html += `<img class="entry-media__hero" src="${img(hero)}" alt="${post.title}" loading="lazy" data-gallery="${post.id}" data-idx="0">`;
 
       if (rest.length === 1) {
@@ -805,20 +970,25 @@
       filtersEl.innerHTML += `<button class="filter-btn${i === 0 ? ' active' : ''}" data-filter="${f.id}">${f.label}</button>`;
     });
 
-    filtersEl.addEventListener('click', e => {
-      const btn = e.target.closest('.filter-btn');
-      if (!btn) return;
-      filtersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const cat = btn.dataset.filter;
+    function applyFilter(cat) {
       document.querySelectorAll('.entry').forEach((el, i) => {
-        const show = cat === 'all' || el.dataset.category === cat;
+        const show = el.dataset.category === cat;
         el.classList.toggle('hidden', !show);
         if (show) {
           el.style.transitionDelay = `${i * 0.04}s`;
           el.classList.add('visible');
         }
       });
+    }
+
+    applyFilter('leadership');
+
+    filtersEl.addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      filtersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilter(btn.dataset.filter);
     });
 
     /* ── Video play ── */
