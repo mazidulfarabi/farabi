@@ -427,7 +427,7 @@
       {
         id: 'kormo', num: '02',
         title: 'Entrepret Season 3 Champion — Team Kormo',
-        category: 'startup', catLabel: 'Startup / Entrepreneurship',
+        category: 'startup', catLabel: 'Startup / Entrepreneurship / competition',
         date: '1 month ago',
         images: [34, 37, 36, 35, 38, 33, 32],
         likes: 75, comments: 4,
@@ -482,7 +482,7 @@
       {
         id: 'tedx', num: '07',
         title: 'TEDx Jahangirnagar University',
-        category: 'speaking', catLabel: 'Speaking / TEDx',
+        category: 'speaking', catLabel: 'TEDx',
         date: '1 year ago',
         images: [17],
         likes: 19, comments: 0,
@@ -661,10 +661,6 @@
               <p class="entry-text">${post.text}</p>
               <div class="entry-chips">${post.chips.map(c => `<span class="chip">${c}</span>`).join('')}</div>
               <div class="entry-foot">
-                <div class="entry-stats">
-                  <span>♥ ${post.likes}</span>
-                  <span>💬 ${post.comments}</span>
-                </div>
                 <a class="entry-link" href="${post.link}" target="_blank" rel="noopener">View on LinkedIn →</a>
               </div>
             </div>
