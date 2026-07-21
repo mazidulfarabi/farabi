@@ -9,150 +9,243 @@
   <link rel="icon" href="/wp-content/uploads/farabi-1.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f6f4ef;
-      --bg-2: #eeeae3;
-      --surface: #ffffff;
-      --ink: #0c0c0c;
-      --ink-2: #3d3d3d;
-      --muted: #6b6b6b;
-      --line: rgba(12,12,12,0.1);
-      --accent: #0c0c0c;
-      --highlight: #e8ff47;
-      --radius: 20px;
-      --font: 'Syne', system-ui, sans-serif;
-      --serif: 'Instrument Serif', Georgia, serif;
+      --bg: #0b0b0b;
+      --bg-2: #141414;
+      --surface: #1a1a1a;
+      --surface-2: #222222;
+      --ink: #ffffff;
+      --ink-2: #d2d2d2;
+      --muted: #808080;
+      --line: rgba(255,255,255,0.08);
+      --accent: #e50914;
+      --accent-hover: #f40612;
+      --radius: 4px;
+      --radius-lg: 6px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
       --max: 760px;
     }
 
-    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
     body {
       font-family: var(--font);
       background: var(--bg);
       color: var(--ink);
-      line-height: 1.65;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      font-size: 15px;
+      font-weight: 400;
     }
 
-    ::selection { background: var(--highlight); color: var(--ink); }
+    ::selection { background: var(--accent); color: #fff; }
 
     .shell { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 6rem; }
 
     /* ── Nav ── */
     nav {
-      position: sticky; top: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 1.25rem 0;
-      transition: background 0.3s, border-color 0.3s;
+      padding: 1rem 3rem;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 100%);
+      transition: background 0.35s;
     }
     nav.scrolled {
-      background: rgba(246,244,239,0.88);
-      backdrop-filter: blur(16px);
+      background: rgba(11,11,11,0.96);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--line);
-      margin: 0 -1.5rem; padding: 1.25rem 1.5rem;
     }
     .logo {
-      font-weight: 800; font-size: 1rem; letter-spacing: -0.03em;
-      text-decoration: none; color: var(--ink);
+      font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em;
+      text-decoration: none; color: var(--accent);
     }
-    .logo span { color: var(--muted); font-weight: 600; }
-    .nav-right { display: flex; align-items: center; gap: 1rem; }
-    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .logo span { color: var(--ink); font-weight: 500; }
+    .nav-right { display: flex; align-items: center; gap: 1.25rem; }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
     .nav-links a {
-      color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 600;
+      color: var(--ink-2); text-decoration: none; font-size: 0.875rem; font-weight: 500;
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--ink); }
     .nav-pill {
       display: inline-flex; align-items: center; gap: 0.35rem;
-      padding: 0.55rem 1.15rem; border-radius: 999px;
-      background: var(--ink); color: #fff; text-decoration: none;
-      font-size: 0.82rem; font-weight: 700;
-      transition: transform 0.2s, box-shadow 0.2s;
+      padding: 0.45rem 1rem; border-radius: var(--radius);
+      background: var(--accent); color: #fff; text-decoration: none;
+      font-size: 0.8125rem; font-weight: 600;
+      transition: background 0.2s;
     }
-    .nav-pill:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+    .nav-pill:hover { background: var(--accent-hover); }
     .nav-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--ink); }
 
     @media (max-width: 768px) {
+      nav { padding: 0.875rem 1.25rem; }
       .nav-toggle { display: block; }
       .nav-links {
         display: none; position: absolute; top: 100%; left: 0; right: 0;
-        flex-direction: column; background: var(--bg); border-bottom: 1px solid var(--line);
-        padding: 1rem 1.5rem 1.25rem; gap: 0.75rem;
+        flex-direction: column; background: var(--bg-2); border-bottom: 1px solid var(--line);
+        padding: 1rem 1.25rem 1.25rem; gap: 0.75rem;
       }
       .nav-links.open { display: flex; }
     }
 
-    /* ── Hero ── */
-    .hero {
-      padding: 3rem 0 4.5rem;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: end;
+    /* ── Video Hero (Netflix-style) ── */
+    .video-hero {
+      position: relative;
+      width: 100%;
+      padding-bottom: 2.5rem;
+      background: var(--bg);
     }
-    @media (max-width: 900px) { .hero { grid-template-columns: 1fr; gap: 2rem; } }
-
-    .hero-badge {
-      display: inline-block; padding: 0.35rem 0.85rem;
-      background: var(--highlight); color: var(--ink);
-      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em;
-      text-transform: uppercase; border-radius: 999px; margin-bottom: 1.25rem;
-    }
-    .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800;
-      letter-spacing: -0.04em; line-height: 0.98; margin-bottom: 1.25rem;
-    }
-    .hero h1 em {
-      font-family: var(--serif); font-style: italic; font-weight: 400;
-    }
-    .hero-lead {
-      font-size: 1.05rem; color: var(--ink-2); max-width: 480px; line-height: 1.7;
-    }
-    .hero-stats {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
-      background: var(--line); border: 1px solid var(--line); border-radius: var(--radius);
+    .video-hero__featured {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      max-height: 72vh;
+      background: #000;
       overflow: hidden;
     }
-    .hero-stat {
-      background: var(--surface); padding: 1.35rem 1.25rem;
+    @media (min-width: 900px) {
+      .video-hero__featured { aspect-ratio: 21 / 9; max-height: 78vh; }
     }
-    .hero-stat strong {
-      display: block; font-size: 1.75rem; font-weight: 800; letter-spacing: -0.03em;
+    .video-hero__featured iframe {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; border: 0;
     }
-    .hero-stat span { font-size: 0.78rem; color: var(--muted); font-weight: 500; line-height: 1.4; }
+    .video-hero__gradient {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        linear-gradient(to top, var(--bg) 0%, transparent 35%),
+        linear-gradient(to right, rgba(0,0,0,0.65) 0%, transparent 45%),
+        linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 25%);
+    }
+    .video-hero__info {
+      position: absolute; bottom: 12%; left: 3rem; right: 40%;
+      z-index: 2; pointer-events: none;
+    }
+    @media (max-width: 768px) {
+      .video-hero__info { left: 1.25rem; right: 1.25rem; bottom: 8%; }
+    }
+    .video-hero__badge {
+      display: inline-block;
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .video-hero__info h1 {
+      font-size: clamp(1.5rem, 4vw, 2.75rem);
+      font-weight: 700; letter-spacing: -0.03em; line-height: 1.1;
+      margin-bottom: 0.65rem;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.6);
+    }
+    .video-hero__info p {
+      font-size: clamp(0.8125rem, 1.5vw, 0.9375rem);
+      color: var(--ink-2); max-width: 480px; line-height: 1.55;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+    }
+    .video-hero__row {
+      padding: 1.75rem 3rem 0;
+    }
+    @media (max-width: 768px) {
+      .video-hero__row { padding: 1.5rem 1.25rem 0; }
+    }
+    .video-hero__row-title {
+      font-size: 0.8125rem; font-weight: 600; color: var(--ink-2);
+      letter-spacing: 0.04em; text-transform: uppercase;
+      margin-bottom: 0.875rem;
+    }
+    .video-hero__scroll {
+      display: flex; gap: 0.5rem;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      padding-bottom: 0.5rem;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .video-hero__scroll::-webkit-scrollbar { display: none; }
+    .video-card {
+      flex: 0 0 auto;
+      width: clamp(140px, 22vw, 220px);
+      scroll-snap-align: start;
+      cursor: pointer;
+      border: 2px solid transparent;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--surface);
+      font-family: inherit;
+      padding: 0;
+      text-align: left;
+      transition: transform 0.25s var(--ease), border-color 0.25s, opacity 0.25s;
+      opacity: 0.65;
+    }
+    .video-card:hover {
+      transform: scale(1.04);
+      opacity: 1;
+      z-index: 1;
+    }
+    .video-card.active {
+      border-color: var(--ink);
+      opacity: 1;
+    }
+    .video-card__thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+    }
+    .video-card__thumb img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+      transition: transform 0.35s var(--ease);
+    }
+    .video-card:hover .video-card__thumb img { transform: scale(1.06); }
+    .video-card__play {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.35);
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .video-card:hover .video-card__play { opacity: 1; }
+    .video-card__play svg {
+      width: 36px; height: 36px; fill: #fff;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+    }
+    .video-card__label {
+      padding: 0.5rem 0.625rem;
+      font-size: 0.75rem; font-weight: 500; color: var(--ink-2);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .video-card.active .video-card__label { color: var(--ink); font-weight: 600; }
 
     /* ── Gallery intro ── */
     .gallery-intro {
       display: flex; align-items: flex-end; justify-content: space-between;
       gap: 2rem; flex-wrap: wrap;
-      padding: 2rem 0 2.5rem;
+      padding: 3rem 0 2rem;
       border-top: 1px solid var(--line);
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
     .gallery-intro h2 {
-      font-size: clamp(1.75rem, 3.5vw, 2.75rem); font-weight: 800;
-      letter-spacing: -0.03em; max-width: 520px; line-height: 1.1;
+      font-size: clamp(1.375rem, 3vw, 2rem); font-weight: 700;
+      letter-spacing: -0.02em; max-width: 520px; line-height: 1.15;
     }
-    .gallery-intro p { color: var(--muted); max-width: 340px; font-size: 0.95rem; }
+    .gallery-intro p { color: var(--muted); max-width: 340px; font-size: 0.875rem; }
 
     /* ── Filters ── */
     .filters {
-      display: flex; flex-wrap: wrap; gap: 0.5rem;
-      padding-bottom: 2.5rem; position: sticky; top: 72px; z-index: 50;
-      background: linear-gradient(to bottom, var(--bg) 70%, transparent);
-      padding-top: 0.5rem;
+      display: flex; flex-wrap: wrap; gap: 0.375rem;
+      padding-bottom: 2rem; position: sticky; top: 56px; z-index: 50;
+      background: linear-gradient(to bottom, var(--bg) 75%, transparent);
+      padding-top: 0.75rem;
     }
     .filter-btn {
-      padding: 0.5rem 1rem; border-radius: 999px;
+      padding: 0.4375rem 0.875rem; border-radius: var(--radius);
       border: 1px solid var(--line); background: var(--surface);
-      color: var(--muted); font-family: inherit; font-size: 0.8rem; font-weight: 700;
+      color: var(--muted); font-family: inherit; font-size: 0.8125rem; font-weight: 500;
       cursor: pointer; transition: all 0.2s;
     }
-    .filter-btn:hover { border-color: var(--ink); color: var(--ink); }
-    .filter-btn.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+    .filter-btn:hover { border-color: rgba(255,255,255,0.2); color: var(--ink-2); }
+    .filter-btn.active { background: var(--ink); border-color: var(--ink); color: var(--bg); }
 
     /* ── Gallery feed — vertical connected cards ── */
     .gallery {
@@ -179,10 +272,10 @@
 
     .entry-marker {
       position: absolute; left: 0; top: 0.35rem;
-      width: 40px; height: 40px; border-radius: 50%;
-      background: var(--surface); border: 2px solid var(--ink);
+      width: 40px; height: 40px; border-radius: var(--radius);
+      background: var(--surface-2); border: 1px solid var(--line);
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.72rem; font-weight: 800;
+      font-size: 0.6875rem; font-weight: 600; color: var(--muted);
     }
     @media (max-width: 600px) {
       .entry { padding-left: 2.75rem; }
@@ -192,13 +285,13 @@
     .entry-card {
       background: var(--surface);
       border: 1px solid var(--line);
-      border-radius: var(--radius);
+      border-radius: var(--radius-lg);
       overflow: hidden;
-      transition: box-shadow 0.35s var(--ease), transform 0.35s var(--ease);
+      transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
     }
     .entry-card:hover {
-      box-shadow: 0 24px 64px rgba(0,0,0,0.08);
-      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.15);
+      transform: translateY(-1px);
     }
 
     /* Vertical media stack */
@@ -224,87 +317,88 @@
     }
     .entry-media--video:hover .entry-media__play { background: rgba(0,0,0,0.15); }
     .entry-media__play span {
-      width: 64px; height: 64px; border-radius: 50%;
-      background: var(--highlight); color: var(--ink);
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--accent); color: #fff;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.25rem; box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      font-size: 1.1rem;
     }
 
-    .entry-body { padding: 1.75rem 1.75rem 1.5rem; }
+    .entry-body { padding: 1.5rem 1.5rem 1.25rem; }
     .entry-meta {
       display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.85rem;
+      flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;
     }
     .entry-cat {
-      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--muted);
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent);
     }
-    .entry-date { font-size: 0.78rem; color: var(--muted); font-weight: 600; }
+    .entry-date { font-size: 0.75rem; color: var(--muted); font-weight: 500; }
     .entry-title {
-      font-size: clamp(1.25rem, 2.5vw, 1.65rem); font-weight: 800;
-      letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.85rem;
+      font-size: clamp(1.125rem, 2.5vw, 1.375rem); font-weight: 600;
+      letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 0.75rem;
     }
     .entry-text {
-      font-size: 0.95rem; color: var(--ink-2); line-height: 1.75; margin-bottom: 1.15rem;
+      font-size: 0.875rem; color: var(--ink-2); line-height: 1.7; margin-bottom: 1rem;
     }
-    .entry-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.15rem; }
+    .entry-chips { display: flex; flex-wrap: wrap; gap: 0.375rem; margin-bottom: 1rem; }
     .chip {
-      padding: 0.3rem 0.7rem; border-radius: 999px;
-      background: var(--bg); border: 1px solid var(--line);
-      font-size: 0.72rem; font-weight: 700; color: var(--ink-2);
+      padding: 0.25rem 0.625rem; border-radius: var(--radius);
+      background: var(--bg-2); border: 1px solid var(--line);
+      font-size: 0.6875rem; font-weight: 500; color: var(--muted);
     }
     .entry-foot {
       display: flex; align-items: center; justify-content: space-between;
       flex-wrap: wrap; gap: 0.75rem;
-      padding-top: 1rem; border-top: 1px solid var(--line);
+      padding-top: 0.875rem; border-top: 1px solid var(--line);
     }
-    .entry-stats { display: flex; gap: 1rem; font-size: 0.78rem; color: var(--muted); font-weight: 600; }
+    .entry-stats { display: flex; gap: 1rem; font-size: 0.75rem; color: var(--muted); font-weight: 500; }
     .entry-link {
-      font-size: 0.82rem; font-weight: 800; color: var(--ink);
+      font-size: 0.8125rem; font-weight: 600; color: var(--ink);
       text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem;
-      border-bottom: 2px solid var(--highlight); padding-bottom: 1px;
-      transition: gap 0.2s;
+      transition: color 0.2s, gap 0.2s;
     }
-    .entry-link:hover { gap: 0.6rem; }
+    .entry-link:hover { color: var(--accent); gap: 0.55rem; }
 
     .view-all-btn {
-      display: block; margin: 0 auto 5rem; padding: 0.85rem 1.75rem;
-      border: 1px solid var(--line); border-radius: 999px;
-      background: var(--surface); font-family: inherit;
-      font-size: 0.85rem; font-weight: 700; cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
+      display: block; margin: 0 auto 5rem; padding: 0.75rem 1.5rem;
+      border: 1px solid var(--line); border-radius: var(--radius);
+      background: var(--surface); color: var(--ink-2); font-family: inherit;
+      font-size: 0.8125rem; font-weight: 500; cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
     }
-    .view-all-btn:hover { background: var(--bg-2); border-color: var(--ink); }
+    .view-all-btn:hover { background: var(--surface-2); border-color: rgba(255,255,255,0.2); color: var(--ink); }
 
     /* ── Footer CTA ── */
     .footer-cta {
-      text-align: center; padding: 4rem 2rem;
-      background: var(--ink); color: #fff; border-radius: var(--radius);
+      text-align: center; padding: 3.5rem 2rem;
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
       margin-bottom: 2rem;
     }
     .footer-cta h2 {
-      font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 400; font-style: italic; margin-bottom: 0.75rem;
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.625rem;
     }
-    .footer-cta p { color: rgba(255,255,255,0.6); margin-bottom: 1.75rem; max-width: 420px; margin-left: auto; margin-right: auto; }
-    .footer-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.75rem; }
+    .footer-cta p { color: var(--muted); margin-bottom: 1.5rem; max-width: 420px; margin-left: auto; margin-right: auto; font-size: 0.875rem; }
+    .footer-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.625rem; }
     .btn-light {
-      padding: 0.75rem 1.5rem; border-radius: 999px;
-      background: var(--highlight); color: var(--ink);
-      text-decoration: none; font-size: 0.85rem; font-weight: 800;
-      transition: transform 0.2s;
+      padding: 0.625rem 1.25rem; border-radius: var(--radius);
+      background: var(--accent); color: #fff;
+      text-decoration: none; font-size: 0.8125rem; font-weight: 600;
+      transition: background 0.2s;
     }
-    .btn-light:hover { transform: translateY(-2px); }
+    .btn-light:hover { background: var(--accent-hover); }
     .btn-outline {
-      padding: 0.75rem 1.5rem; border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.25); color: #fff;
-      text-decoration: none; font-size: 0.85rem; font-weight: 700;
-      transition: border-color 0.2s;
+      padding: 0.625rem 1.25rem; border-radius: var(--radius);
+      border: 1px solid var(--line); color: var(--ink-2);
+      text-decoration: none; font-size: 0.8125rem; font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
     }
-    .btn-outline:hover { border-color: #fff; }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.25); color: var(--ink); }
 
-    footer { text-align: center; font-size: 0.78rem; color: var(--muted); }
+    footer { text-align: center; font-size: 0.75rem; color: var(--muted); }
     footer a { color: var(--ink-2); text-decoration: none; }
+    footer a:hover { color: var(--ink); }
 
     /* ── Lightbox ── */
     .lightbox {
@@ -344,38 +438,45 @@
 </head>
 <body>
 
+  <nav id="nav">
+    <a class="logo" href="/">Farabi<span> · Portfolio</span></a>
+    <div class="nav-right">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#videos">Videos</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="/work">View Work</a></li>
+        <li><a href="/gallery.html">All photos</a></li>
+      </ul>
+      <a class="nav-pill" href="mailto:mhfarabi09@gmail.com">Contact</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <section class="video-hero" id="videos">
+    <div class="video-hero__featured">
+      <iframe
+        id="featuredPlayer"
+        title="Featured video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
+      <div class="video-hero__gradient"></div>
+      <div class="video-hero__info">
+        <span class="video-hero__badge">Featured</span>
+        <h1 id="featuredTitle">Talks &amp; Appearances</h1>
+        <p id="featuredDesc">Selected moments on stage, in conversation, and on camera — leadership, entrepreneurship, and impact across Bangladesh.</p>
+      </div>
+    </div>
+    <div class="video-hero__row">
+      <p class="video-hero__row-title">Watch</p>
+      <div class="video-hero__scroll" id="videoRow"></div>
+    </div>
+  </section>
+
   <div class="shell">
-    <nav id="nav">
-      <a class="logo" href="/">Farabi<span> · Portfolio</span></a>
-      <div class="nav-right">
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="/work">View Work</a></li>
-          <li><a href="/gallery.html">All photos</a></li>
-        </ul>
-        <a class="nav-pill" href="mailto:mhfarabi09@gmail.com">Contact</a>
-        <button class="nav-toggle" id="navToggle" aria-label="Menu">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-        </button>
-      </div>
-    </nav>
-
-    <!--  
-    <header class="hero">
-      <div>
-        <div class="hero-badge">Leadership · Startup · Impact</div>
-        <h1>Selected moments from a journey of <em>building bold</em></h1>
-        <p class="hero-lead">A connected visual archive — from Breaking Brand grand finales and Entrepret championships to campus leadership, competitions, and the people who made it all happen.</p>
-      </div>
-      <div class="hero-stats">
-        <div class="hero-stat"><strong>1,700+</strong><span>BB26 participants nationwide</span></div>
-        <div class="hero-stat"><strong>#1</strong><span>Entrepret S3 · 616 teams</span></div>
-        <div class="hero-stat"><strong>84</strong><span>Executive committee led</span></div>
-        <div class="hero-stat"><strong>40+</strong><span>Corporate sponsors secured</span></div>
-      </div>
-    </header>
-    -->
-
     <div class="gallery-intro" id="gallery">
       <h2>Every chapter, one continuous story</h2>
       <p>Scroll through the timeline — each entry is a milestone captured in its own words and photographs.</p>
@@ -413,6 +514,55 @@
 
   <script>
     const img = n => `images/${n}.jfif`;
+
+    const VIDEOS = [
+      { id: 'iem-GOgLhJU', start: 1420, title: 'Appearance 01', desc: 'On stage — leadership and entrepreneurship in conversation.' },
+      { id: 'g8RMOARfx3g', start: 1993, title: 'Appearance 02', desc: 'A highlight from a live session and panel discussion.' },
+      { id: 'sNXfDodEbdw', start: 42,   title: 'Appearance 03', desc: 'Opening moments from a featured talk and event coverage.' },
+      { id: 'nVXcGYon1UI', start: 106,  title: 'Appearance 04', desc: 'Insights shared on startups, marketing, and student innovation.' },
+      { id: 'gll9Peuqhc4', start: 19,   title: 'Appearance 05', desc: 'A curated clip from a public speaking engagement.' }
+    ];
+
+    const embedUrl = (v) =>
+      `https://www.youtube-nocookie.com/embed/${v.id}?start=${v.start}&rel=0&modestbranding=1&playsinline=1`;
+
+    const featuredPlayer = document.getElementById('featuredPlayer');
+    const featuredTitle = document.getElementById('featuredTitle');
+    const featuredDesc = document.getElementById('featuredDesc');
+    const videoRow = document.getElementById('videoRow');
+    let activeIdx = 0;
+
+    function setFeatured(idx) {
+      activeIdx = idx;
+      const v = VIDEOS[idx];
+      featuredPlayer.src = embedUrl(v);
+      featuredTitle.textContent = v.title;
+      featuredDesc.textContent = v.desc;
+      videoRow.querySelectorAll('.video-card').forEach((card, i) => {
+        card.classList.toggle('active', i === idx);
+      });
+    }
+
+    VIDEOS.forEach((v, i) => {
+      videoRow.innerHTML += `
+        <button class="video-card${i === 0 ? ' active' : ''}" data-idx="${i}" aria-label="Play ${v.title}">
+          <div class="video-card__thumb">
+            <img src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg" alt="${v.title}" loading="lazy">
+            <div class="video-card__play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <div class="video-card__label">${v.title}</div>
+        </button>`;
+    });
+
+    videoRow.addEventListener('click', e => {
+      const card = e.target.closest('.video-card');
+      if (!card) return;
+      setFeatured(+card.dataset.idx);
+    });
+
+    setFeatured(0);
 
     const POSTS = [
       {
@@ -760,7 +910,7 @@
     /* ── Nav scroll ── */
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 24);
+      nav.classList.toggle('scrolled', window.scrollY > 40);
     }, { passive: true });
 
     document.getElementById('navToggle').addEventListener('click', () => {
