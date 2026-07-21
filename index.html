@@ -873,6 +873,7 @@
     ];
 
     const FILTERS = [
+      { id: 'all', label: 'All' }
       { id: 'leadership', label: 'Leadership' },
       { id: 'competition', label: 'Competitions' }
     ];
@@ -946,13 +947,22 @@
     }
 
     function applyFilter(cat) {
-      document.querySelectorAll('.entry').forEach(el => {
-        const show = el.dataset.category === cat;
-        el.classList.toggle('hidden', !show);
-        if (show) el.classList.add('visible');
-      });
-      renumberVisible();
+  document.querySelectorAll('.entry').forEach(el => {
+    // Show the element if the category is 'all' OR if it matches the dataset category
+    const show = (cat === 'all') || (el.dataset.category === cat);
+    
+    el.classList.toggle('hidden', !show);
+    
+    if (show) {
+      el.classList.add('visible');
+    } else {
+      // Good practice to ensure 'visible' is removed when hidden
+      el.classList.remove('visible'); 
     }
+  });
+  
+  renumberVisible();
+}
 
     applyFilter('leadership');
 
