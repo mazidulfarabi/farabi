@@ -9,31 +9,33 @@
   <link rel="icon" href="/wp-content/uploads/farabi-1.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="preload" href="images/hero.jpeg" as="image" fetchpriority="high">
   <link rel="preload" href="images/thumb1.png" as="image">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #09090b;
-      --bg-2: #111114;
-      --surface: #141416;
-      --surface-2: #1a1a1e;
-      --ink: #fafafa;
-      --ink-2: #a1a1aa;
-      --muted: #71717a;
+      --bg: #070b14;
+      --bg-2: #0c1220;
+      --surface: rgba(255,255,255,0.04);
+      --surface-2: rgba(255,255,255,0.07);
+      --ink: #f1f5f9;
+      --ink-2: #94a3b8;
+      --muted: #64748b;
       --line: rgba(255,255,255,0.08);
       --line-strong: rgba(255,255,255,0.14);
-      --accent: #e4e4e7;
-      --highlight: rgba(255,255,255,0.06);
-      --radius: 12px;
+      --accent: #38bdf8;
+      --accent-2: #818cf8;
+      --accent-glow: rgba(56,189,248,0.15);
+      --radius: 16px;
+      --radius-sm: 10px;
       --font: 'Inter', system-ui, -apple-system, sans-serif;
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
-      --max: 760px;
+      --max: 780px;
     }
 
-    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
     body {
       font-family: var(--font);
       background: var(--bg);
@@ -42,32 +44,52 @@
       font-size: 15px;
       letter-spacing: -0.011em;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    ::selection { background: rgba(255,255,255,0.15); color: var(--ink); }
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: -1;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(56,189,248,0.12), transparent),
+        radial-gradient(ellipse 60% 40% at 100% 20%, rgba(129,140,248,0.08), transparent),
+        linear-gradient(var(--bg), var(--bg));
+    }
 
-    .shell { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 6rem; }
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black, transparent);
+    }
+
+    ::selection { background: rgba(56,189,248,0.25); color: var(--ink); }
+
+    .shell { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem 5rem; }
 
     /* ── Nav ── */
     nav {
       position: sticky; top: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 1.25rem 0;
-      transition: background 0.3s, border-color 0.3s;
+      padding: 1rem 0;
+      transition: background 0.3s, border-color 0.3s, padding 0.3s;
     }
     nav.scrolled {
-      background: rgba(9,9,11,0.85);
-      backdrop-filter: blur(16px);
+      background: rgba(7,11,20,0.82);
+      backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--line);
-      margin: 0 -1.5rem; padding: 1.25rem 1.5rem;
+      margin: 0 -1.5rem; padding: 0.85rem 1.5rem;
     }
     .logo {
-      font-weight: 600; font-size: 0.95rem; letter-spacing: -0.02em;
+      font-weight: 700; font-size: 1rem; letter-spacing: -0.03em;
       text-decoration: none; color: var(--ink);
     }
-    .logo span { color: var(--muted); font-weight: 500; }
+    .logo span { color: var(--accent); }
     .nav-right { display: flex; align-items: center; gap: 1rem; }
-    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
     .nav-links a {
       color: var(--muted); text-decoration: none; font-size: 0.8125rem; font-weight: 500;
       transition: color 0.2s;
@@ -75,129 +97,151 @@
     .nav-links a:hover { color: var(--ink); }
     .nav-pill {
       display: inline-flex; align-items: center; gap: 0.35rem;
-      padding: 0.5rem 1rem; border-radius: 8px;
+      padding: 0.55rem 1.15rem; border-radius: 999px;
       background: var(--ink); color: var(--bg); text-decoration: none;
       font-size: 0.8125rem; font-weight: 600;
-      transition: opacity 0.2s;
+      transition: transform 0.2s, opacity 0.2s;
     }
-    .nav-pill:hover { opacity: 0.88; }
+    .nav-pill:hover { opacity: 0.9; transform: translateY(-1px); }
     .nav-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--ink); }
 
     /* ── Hero ── */
     .hero {
       display: grid;
-      grid-template-columns: 1fr 280px;
+      grid-template-columns: 1.1fr 0.9fr;
       gap: 3rem;
       align-items: center;
-      padding: 2.5rem 0 3.5rem;
-      border-bottom: 1px solid var(--line);
+      padding: 3rem 0 4rem;
+      min-height: calc(100vh - 80px);
     }
-    .hero-badge {
-      display: inline-block;
-      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--muted);
-      margin-bottom: 1rem;
+    .hero-avail {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.35rem 0.85rem; border-radius: 999px;
+      border: 1px solid var(--line); background: var(--surface);
+      font-size: 0.75rem; font-weight: 500; color: var(--ink-2);
+      margin-bottom: 1.25rem;
+    }
+    .hero-avail::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%;
+      background: #4ade80; box-shadow: 0 0 8px rgba(74,222,128,0.6);
     }
     .hero h1 {
-      font-size: clamp(1.75rem, 4vw, 2.5rem);
-      font-weight: 600; letter-spacing: -0.03em; line-height: 1.15;
-      margin-bottom: 1rem;
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 800; letter-spacing: -0.04em; line-height: 1.08;
+      margin-bottom: 1.25rem;
     }
-    .hero h1 em { font-style: normal; color: var(--ink-2); }
+    .hero h1 .accent { color: var(--accent); }
     .hero-lead {
-      color: var(--muted); font-size: 0.9375rem; line-height: 1.65;
-      max-width: 520px; margin-bottom: 1.5rem;
+      color: var(--ink-2); font-size: 1rem; line-height: 1.7;
+      max-width: 520px; margin-bottom: 1.75rem;
     }
-    .hero-social {
-      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    .hero-actions {
+      display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 2.25rem;
     }
-    .social-btn {
+    .btn-primary {
       display: inline-flex; align-items: center; gap: 0.4rem;
-      padding: 0.5rem 1rem; border-radius: 8px;
-      border: 1px solid var(--line); background: var(--surface);
-      color: var(--ink-2); text-decoration: none;
-      font-size: 0.8125rem; font-weight: 500;
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      padding: 0.7rem 1.35rem; border-radius: 999px;
+      background: var(--ink); color: var(--bg);
+      text-decoration: none; font-size: 0.875rem; font-weight: 600;
+      transition: transform 0.2s, opacity 0.2s;
     }
-    .social-btn:hover {
-      border-color: var(--line-strong); color: var(--ink); background: var(--surface-2);
+    .btn-primary:hover { opacity: 0.92; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.7rem 1.35rem; border-radius: 999px;
+      border: 1px solid var(--line-strong); background: var(--surface);
+      color: var(--ink); text-decoration: none;
+      font-size: 0.875rem; font-weight: 500;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: rgba(56,189,248,0.4); background: var(--surface-2); }
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+      max-width: 420px;
+    }
+    .hero-stat {
+      padding: 0.85rem 0;
+      border-top: 1px solid var(--line);
+    }
+    .hero-stat strong {
+      display: block; font-size: 1.35rem; font-weight: 700;
+      letter-spacing: -0.03em; color: var(--ink); line-height: 1.2;
+    }
+    .hero-stat span { font-size: 0.72rem; color: var(--muted); font-weight: 500; }
+
+    .hero-visual { position: relative; }
+    .hero-photo-wrap {
+      position: relative; border-radius: 24px; overflow: hidden;
+      border: 1px solid var(--line-strong);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.04) inset;
     }
     .hero-photo {
       width: 100%; aspect-ratio: 4/5;
-      object-fit: cover; border-radius: var(--radius);
-      border: 1px solid var(--line);
+      object-fit: cover; display: block;
     }
-    @media (max-width: 768px) {
-      .hero {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        padding: 2rem 0 2.5rem;
-      }
-      .hero-photo { max-width: 240px; margin: 0 auto; display: block; }
+    .hero-float {
+      position: absolute;
+      padding: 0.55rem 0.85rem; border-radius: 12px;
+      background: rgba(7,11,20,0.75); backdrop-filter: blur(12px);
+      border: 1px solid var(--line-strong);
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.04em;
+      text-transform: uppercase; color: var(--ink-2);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
     }
+    .hero-float strong { display: block; color: var(--ink); font-size: 0.75rem; margin-top: 0.15rem; text-transform: none; letter-spacing: -0.01em; }
+    .hero-float--tl { top: 1rem; left: 1rem; }
+    .hero-float--br { bottom: 1.25rem; right: 1rem; }
+    .hero-float--bl { bottom: 1.25rem; left: 1rem; }
 
-    @media (max-width: 768px) {
-      .nav-toggle { display: block; }
-      .nav-links {
-        display: none; position: absolute; top: 100%; left: 0; right: 0;
-        flex-direction: column; background: var(--bg); border-bottom: 1px solid var(--line);
-        padding: 1rem 1.5rem 1.25rem; gap: 0.75rem;
-      }
-      .nav-links.open { display: flex; }
+    /* ── Section heads ── */
+    .section-head { margin-bottom: 1.75rem; }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
     }
+    .section-tag::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+    }
+    .section-head h2 {
+      font-size: clamp(1.5rem, 3vw, 2.125rem);
+      font-weight: 700; letter-spacing: -0.03em; line-height: 1.15;
+    }
+    .section-head p { color: var(--muted); font-size: 0.875rem; margin-top: 0.5rem; max-width: 480px; }
 
     /* ── Video showcase ── */
     .video-showcase {
-      padding: 2rem 0 3rem;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 0.5rem;
-    }
-    .video-showcase__label {
-      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+      padding: 3.5rem 0;
+      border-top: 1px solid var(--line);
     }
     .video-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 0.75rem;
+      gap: 0.85rem;
     }
-    @media (max-width: 900px) {
-      .video-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 480px) {
-      .video-grid { grid-template-columns: 1fr; gap: 0.65rem; }
-    }
+    @media (max-width: 900px) { .video-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .video-grid { grid-template-columns: 1fr; } }
+
     .video-item {
-      position: relative;
-      aspect-ratio: 16/9;
-      border-radius: var(--radius);
-      overflow: hidden;
-      background: var(--surface);
-      border: 1px solid var(--line);
+      position: relative; aspect-ratio: 16/9;
+      border-radius: var(--radius-sm); overflow: hidden;
+      background: var(--surface); border: 1px solid var(--line);
       cursor: pointer;
+      transition: border-color 0.25s, transform 0.25s var(--ease);
     }
-    .video-item video {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-      background: var(--surface-2);
-    }
+    .video-item:hover { border-color: rgba(56,189,248,0.35); transform: translateY(-2px); }
+    .video-item video { width: 100%; height: 100%; object-fit: cover; display: block; background: var(--bg-2); }
     .video-item__poster {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: opacity 0.35s var(--ease);
-      pointer-events: none;
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; transition: opacity 0.35s var(--ease); pointer-events: none;
     }
     .video-item.is-playing .video-item__poster { opacity: 0; }
     .video-item__overlay {
       position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center;
-      background: rgba(0,0,0,0.35);
-      transition: opacity 0.3s, background 0.3s;
-      pointer-events: none;
+      background: rgba(0,0,0,0.3); transition: opacity 0.3s; pointer-events: none;
     }
     .video-item.is-playing .video-item__overlay { opacity: 0; }
-    .video-item:hover .video-item__overlay { background: rgba(0,0,0,0.2); }
     .video-item__play {
       width: 44px; height: 44px; border-radius: 50%;
       background: rgba(255,255,255,0.95); color: var(--bg);
@@ -206,100 +250,51 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
     .video-item.is-loading .video-item__play {
-      width: 28px; height: 28px;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-top-color: #fff;
-      background: transparent;
-      animation: spin 0.7s linear infinite;
-      padding: 0;
+      width: 28px; height: 28px; padding: 0;
+      border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
+      background: transparent; animation: spin 0.7s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ── Certificate carousel ── */
-    .cert-carousel {
-      padding: 2rem 0 3rem;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 0.5rem;
-    }
-    .cert-carousel__label {
-      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
-    }
-    .cert-track-wrap {
-      position: relative;
-      overflow: hidden;
-      border-radius: var(--radius);
-      border: 1px solid var(--line);
-      background: var(--surface);
-    }
-    .cert-track {
-      display: flex;
-      transition: transform 0.45s var(--ease);
-    }
-    .cert-slide {
-      flex: 0 0 100%;
-      display: flex; align-items: center; justify-content: center;
-      padding: 1.25rem;
-      min-height: 220px;
-    }
-    .cert-slide img {
-      max-width: 100%; max-height: 320px;
-      object-fit: contain; border-radius: 6px;
-    }
-    .cert-nav {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      width: 36px; height: 36px; border-radius: 50%;
-      border: 1px solid var(--line-strong); background: rgba(9,9,11,0.75);
-      color: var(--ink); cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s, border-color 0.2s;
-      backdrop-filter: blur(8px);
-    }
-    .cert-nav:hover { background: rgba(255,255,255,0.1); border-color: var(--muted); }
-    .cert-nav--prev { left: 0.75rem; }
-    .cert-nav--next { right: 0.75rem; }
-    .cert-dots {
-      display: flex; justify-content: center; gap: 0.4rem;
-      margin-top: 0.85rem;
-    }
-    .cert-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      border: none; background: var(--line-strong); cursor: pointer;
-      padding: 0; transition: background 0.2s, transform 0.2s;
-    }
-    .cert-dot.active { background: var(--ink); transform: scale(1.2); }
-
-    /* ── Gallery intro ── */
-    .gallery-intro {
-      display: flex; align-items: flex-end; justify-content: space-between;
-      gap: 2rem; flex-wrap: wrap;
-      padding: 2rem 0 2.5rem;
+    /* ── Certificate grid ── */
+    .cert-section {
+      padding: 3.5rem 0;
       border-top: 1px solid var(--line);
-      margin-bottom: 1rem;
     }
-    .gallery-intro h2 {
-      font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600;
-      letter-spacing: -0.025em; max-width: 520px; line-height: 1.2;
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
     }
-    .gallery-intro p { color: var(--muted); max-width: 340px; font-size: 0.875rem; font-weight: 400; }
+    @media (max-width: 640px) { .cert-grid { grid-template-columns: repeat(2, 1fr); } }
+    .cert-item {
+      aspect-ratio: 4/3; border-radius: var(--radius-sm);
+      overflow: hidden; border: 1px solid var(--line);
+      background: var(--surface); cursor: zoom-in;
+      transition: border-color 0.25s, transform 0.25s var(--ease);
+    }
+    .cert-item:hover { border-color: rgba(56,189,248,0.35); transform: translateY(-2px); }
+    .cert-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    /* ── Filters ── */
+    /* ── Gallery intro & filters ── */
+    .gallery-intro { padding: 3.5rem 0 0; border-top: 1px solid var(--line); }
+    .timeline-section { padding: 3.5rem 0 0; border-top: 1px solid var(--line); }
     .filters {
       display: flex; flex-wrap: wrap; gap: 0.5rem;
-      padding-bottom: 2.5rem; position: sticky; top: 72px; z-index: 50;
-      background: linear-gradient(to bottom, var(--bg) 70%, transparent);
-      padding-top: 0.5rem;
+      padding-bottom: 2rem;
     }
     .filter-btn {
-      padding: 0.4rem 0.85rem; border-radius: 8px;
-      border: 1px solid var(--line); background: transparent;
-      color: var(--muted); font-family: inherit; font-size: 0.75rem; font-weight: 500;
+      padding: 0.45rem 1rem; border-radius: 999px;
+      border: 1px solid var(--line); background: var(--surface);
+      color: var(--muted); font-family: inherit; font-size: 0.8125rem; font-weight: 500;
       cursor: pointer; transition: all 0.2s;
     }
     .filter-btn:hover { border-color: var(--line-strong); color: var(--ink); }
-    .filter-btn.active { background: var(--surface-2); border-color: var(--line-strong); color: var(--ink); }
+    .filter-btn.active {
+      background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.4); color: var(--accent);
+    }
 
-    /* ── Gallery feed — vertical connected cards ── */
+    /* ── Timeline ── */
     .gallery {
       position: relative;
       display: flex; flex-direction: column; gap: 0;
@@ -307,17 +302,17 @@
     }
     .gallery::before {
       content: ''; position: absolute; left: 19px; top: 0; bottom: 0;
-      width: 2px; background: var(--line); z-index: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), rgba(56,189,248,0.1));
+      z-index: 0;
     }
-    @media (max-width: 600px) {
-      .gallery::before { left: 15px; }
-    }
+    @media (max-width: 600px) { .gallery::before { left: 15px; } }
 
     .entry {
       position: relative; z-index: 1;
-      padding-left: 3.5rem; padding-bottom: 4rem;
-      opacity: 0; transform: translateY(28px);
-      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+      padding-left: 3.5rem; padding-bottom: 3.5rem;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
     }
     .entry.visible { opacity: 1; transform: translateY(0); }
     .entry.hidden { display: none; }
@@ -325,13 +320,14 @@
     .entry-marker {
       position: absolute; left: 0; top: 0.35rem;
       width: 40px; height: 40px; border-radius: 50%;
-      background: var(--surface); border: 1px solid var(--line-strong);
+      background: var(--bg-2); border: 2px solid rgba(56,189,248,0.5);
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.6875rem; font-weight: 600; color: var(--muted);
+      font-size: 0.6875rem; font-weight: 700; color: var(--accent);
+      box-shadow: 0 0 20px var(--accent-glow);
     }
     @media (max-width: 600px) {
       .entry { padding-left: 2.75rem; }
-      .entry-marker { width: 32px; height: 32px; font-size: 0.65rem; }
+      .entry-marker { width: 32px; height: 32px; font-size: 0.625rem; }
     }
 
     .entry-card {
@@ -339,14 +335,15 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       overflow: hidden;
-      transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+      backdrop-filter: blur(8px);
+      transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s;
     }
     .entry-card:hover {
-      border-color: var(--line-strong);
-      transform: translateY(-1px);
+      border-color: rgba(56,189,248,0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
     }
 
-    /* Vertical media stack */
     .entry-media { display: flex; flex-direction: column; gap: 3px; background: var(--line); }
     .entry-media img, .entry-media video {
       width: 100%; display: block; object-fit: cover;
@@ -354,9 +351,7 @@
     }
     .entry-media img:hover { opacity: 0.92; }
     .entry-media__hero { aspect-ratio: 4/3; object-fit: cover; }
-    .entry-media__grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px;
-    }
+    .entry-media__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; }
     .entry-media__grid img { aspect-ratio: 1; object-fit: cover; }
     .entry-media__grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
 
@@ -364,8 +359,7 @@
     .entry-media--video video { aspect-ratio: 16/9; cursor: pointer; }
     .entry-media__play {
       position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-      background: rgba(0,0,0,0.25); pointer-events: none;
-      transition: background 0.3s;
+      background: rgba(0,0,0,0.25); pointer-events: none; transition: background 0.3s;
     }
     .entry-media--video:hover .entry-media__play { background: rgba(0,0,0,0.15); }
     .entry-media__play span {
@@ -375,88 +369,77 @@
       font-size: 1rem; box-shadow: 0 4px 24px rgba(0,0,0,0.35);
     }
 
-    .entry-body { padding: 1.75rem 1.75rem 1.5rem; }
+    .entry-body { padding: 1.75rem; }
     .entry-meta {
       display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.85rem;
+      flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;
     }
     .entry-cat {
       font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--muted);
+      text-transform: uppercase; color: var(--accent);
     }
     .entry-date { font-size: 0.75rem; color: var(--muted); font-weight: 500; }
     .entry-title {
-      font-size: clamp(1.125rem, 2.5vw, 1.375rem); font-weight: 600;
-      letter-spacing: -0.02em; line-height: 1.25; margin-bottom: 0.75rem;
+      font-size: clamp(1.125rem, 2.5vw, 1.35rem); font-weight: 700;
+      letter-spacing: -0.02em; line-height: 1.25; margin-bottom: 0.65rem;
     }
-    .entry-text {
-      font-size: 0.875rem; color: var(--ink-2); line-height: 1.7; margin-bottom: 1rem;
-    }
-    .entry-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.15rem; }
+    .entry-text { font-size: 0.875rem; color: var(--ink-2); line-height: 1.7; margin-bottom: 1rem; }
+    .entry-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
     .chip {
-      padding: 0.25rem 0.6rem; border-radius: 6px;
-      background: var(--highlight); border: 1px solid var(--line);
+      padding: 0.3rem 0.65rem; border-radius: 999px;
+      background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.15);
       font-size: 0.6875rem; font-weight: 500; color: var(--ink-2);
     }
     .entry-foot {
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 0.75rem;
       padding-top: 1rem; border-top: 1px solid var(--line);
     }
-    .entry-stats { display: flex; gap: 1rem; font-size: 0.78rem; color: var(--muted); font-weight: 600; }
     .entry-link {
-      font-size: 0.8125rem; font-weight: 500; color: var(--ink);
+      font-size: 0.8125rem; font-weight: 600; color: var(--accent);
       text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem;
-      border-bottom: 1px solid var(--line-strong); padding-bottom: 1px;
-      transition: gap 0.2s, color 0.2s;
+      transition: gap 0.2s;
     }
-    .entry-link:hover { gap: 0.55rem; color: var(--accent); }
-
-    .view-all-btn {
-      display: block; margin: 0 auto 5rem; padding: 0.75rem 1.5rem;
-      border: 1px solid var(--line); border-radius: 8px;
-      background: transparent; font-family: inherit;
-      font-size: 0.8125rem; font-weight: 500; color: var(--ink-2); cursor: pointer;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .view-all-btn:hover { border-color: var(--line-strong); color: var(--ink); }
+    .entry-link:hover { gap: 0.55rem; }
 
     /* ── Footer CTA ── */
     .footer-cta {
       text-align: center; padding: 3.5rem 2rem;
       background: var(--surface); color: var(--ink);
       border: 1px solid var(--line); border-radius: var(--radius);
-      margin-bottom: 2rem;
+      margin: 3rem 0 2rem;
+      backdrop-filter: blur(8px);
     }
     .footer-cta h2 {
       font-size: clamp(1.5rem, 3vw, 2rem);
-      font-weight: 600; letter-spacing: -0.025em; margin-bottom: 0.65rem;
+      font-weight: 700; letter-spacing: -0.03em; margin-bottom: 0.65rem;
     }
-    .footer-cta p { color: var(--muted); margin-bottom: 1.5rem; max-width: 420px; margin-left: auto; margin-right: auto; font-size: 0.875rem; }
+    .footer-cta p {
+      color: var(--muted); margin-bottom: 1.5rem; max-width: 420px;
+      margin-left: auto; margin-right: auto; font-size: 0.875rem;
+    }
     .footer-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.65rem; }
     .btn-light {
-      padding: 0.65rem 1.25rem; border-radius: 8px;
+      padding: 0.65rem 1.25rem; border-radius: 999px;
       background: var(--ink); color: var(--bg);
       text-decoration: none; font-size: 0.8125rem; font-weight: 600;
       transition: opacity 0.2s;
     }
     .btn-light:hover { opacity: 0.88; }
     .btn-outline {
-      padding: 0.65rem 1.25rem; border-radius: 8px;
+      padding: 0.65rem 1.25rem; border-radius: 999px;
       border: 1px solid var(--line-strong); color: var(--ink);
       text-decoration: none; font-size: 0.8125rem; font-weight: 500;
       transition: border-color 0.2s, background 0.2s;
     }
-    .btn-outline:hover { border-color: var(--muted); background: var(--highlight); }
+    .btn-outline:hover { border-color: rgba(56,189,248,0.4); background: var(--surface-2); }
 
-    footer { text-align: center; font-size: 0.75rem; color: var(--muted); }
+    footer { text-align: center; font-size: 0.75rem; color: var(--muted); padding-bottom: 1rem; }
     footer a { color: var(--ink-2); text-decoration: none; }
-    footer a:hover { color: var(--ink); }
+    footer a:hover { color: var(--accent); }
 
     /* ── Lightbox ── */
     .lightbox {
       position: fixed; inset: 0; z-index: 1000;
-      background: rgba(9,9,11,0.94); backdrop-filter: blur(20px);
+      background: rgba(7,11,20,0.94); backdrop-filter: blur(20px);
       display: flex; align-items: center; justify-content: center;
       opacity: 0; visibility: hidden; transition: opacity 0.35s, visibility 0.35s;
     }
@@ -487,18 +470,34 @@
       position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
       color: rgba(255,255,255,0.65); font-size: 0.85rem; text-align: center;
     }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; padding: 2rem 0 3rem; }
+      .hero-visual { order: -1; max-width: 320px; margin: 0 auto; }
+      .hero-stats { max-width: 100%; }
+    }
+    @media (max-width: 768px) {
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        flex-direction: column; background: var(--bg); border-bottom: 1px solid var(--line);
+        padding: 1rem 1.5rem 1.25rem; gap: 0.75rem;
+      }
+      .nav-links.open { display: flex; }
+    }
   </style>
 </head>
 <body>
 
   <div class="shell">
     <nav id="nav">
-      <a class="logo" href="/">Farabi<span> · Portfolio</span></a>
+      <a class="logo" href="/">Farabi<span>.</span></a>
       <div class="nav-right">
         <ul class="nav-links" id="navLinks">
-          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#gallery">Journey</a></li>
           <li><a href="#highlights">Highlights</a></li>
-          <li><a href="/gallery.html">All photos</a></li>
+          <li><a href="#certificates">Certificates</a></li>
+          <li><a href="/gallery.html">Photos</a></li>
         </ul>
         <a class="nav-pill" href="mailto:mhfarabi09@gmail.com">Contact</a>
         <button class="nav-toggle" id="navToggle" aria-label="Menu">
@@ -509,48 +508,67 @@
 
     <header class="hero">
       <div>
-        <div class="hero-badge">Leadership · Competitions · Impact</div>
-        <h1>Selected moments from a journey of <em>building bold</em></h1>
+        <div class="hero-avail">Available for collaborations · 2026</div>
+        <h1>Hi, I'm <span class="accent">Md. Mazidul Haque Farabi</span></h1>
         <p class="hero-lead">A connected visual archive — from Breaking Brand grand finales and Entrepret championships to campus leadership, competitions, and the people who made it all happen.</p>
-        <div class="hero-social">
-          <a class="social-btn" href="https://www.linkedin.com/in/mazidulfarabi/" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="social-btn" href="mailto:mhfarabi09@gmail.com">Mail</a>
-          <a class="social-btn" href="https://github.com/mazidulfarabi/" target="_blank" rel="noopener">GitHub</a>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#gallery">View Journey →</a>
+          <a class="btn-ghost" href="mailto:mhfarabi09@gmail.com">Contact Me</a>
+          <a class="btn-ghost" href="https://www.linkedin.com/in/mazidulfarabi/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn-ghost" href="https://github.com/mazidulfarabi/" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><strong>1,700+</strong><span>BB26 participants</span></div>
+          <div class="hero-stat"><strong>#1</strong><span>Entrepret S3 · 616 teams</span></div>
+          <div class="hero-stat"><strong>40+</strong><span>Corporate sponsors</span></div>
         </div>
       </div>
-      <img class="hero-photo" src="images/hero.jpeg" alt="Md. Mazidul Haque Farabi" width="280" height="350" fetchpriority="high">
+      <div class="hero-visual">
+        <div class="hero-photo-wrap">
+          <img class="hero-photo" src="images/hero.jpeg" alt="Md. Mazidul Haque Farabi" width="400" height="500" fetchpriority="high">
+          <div class="hero-float hero-float--tl">President<strong>IBA-JU BC</strong></div>
+          <div class="hero-float hero-float--br">Champion<strong>Entrepret S3</strong></div>
+          <div class="hero-float hero-float--bl">GM<strong>Breaking Brand</strong></div>
+        </div>
+      </div>
     </header>
 
-    <div class="gallery-intro" id="gallery">
-      <h2>Every chapter, one continuous story</h2>
-      <p>Scroll through the timeline — each entry is a milestone captured in its own words and photographs.</p>
-    </div>
-
-    <div class="filters" id="filters"></div>
+    <section class="gallery-intro" id="gallery">
+      <div class="section-head">
+        <span class="section-tag">Explore</span>
+        <h2>Leadership, competitions & milestones</h2>
+        <p>Highlights and credentials first — then scroll into the full timeline below.</p>
+      </div>
+    </section>
 
     <section class="video-showcase" id="highlights" aria-label="Video highlights">
-      <p class="video-showcase__label">Highlights</p>
+      <div class="section-head">
+        <span class="section-tag">Highlights</span>
+        <h2>Moments in motion</h2>
+      </div>
       <div class="video-grid" id="videoGrid"></div>
     </section>
 
-    <section class="cert-carousel" id="certificates" aria-label="Certificates">
-      <p class="cert-carousel__label">Certificates</p>
-      <div class="cert-track-wrap">
-        <button class="cert-nav cert-nav--prev" id="certPrev" aria-label="Previous certificate">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <div class="cert-track" id="certTrack"></div>
-        <button class="cert-nav cert-nav--next" id="certNext" aria-label="Next certificate">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
+    <section class="cert-section" id="certificates" aria-label="Certificates">
+      <div class="section-head">
+        <span class="section-tag">Credentials</span>
+        <h2>Certificates & recognition</h2>
       </div>
-      <div class="cert-dots" id="certDots"></div>
+      <div class="cert-grid" id="certGrid"></div>
     </section>
 
-    <div class="gallery" id="galleryFeed"></div>
+    <section class="timeline-section">
+      <div class="section-head">
+        <span class="section-tag">Journey</span>
+        <h2>Every chapter, one continuous story</h2>
+        <p>Each entry is a milestone captured in its own words and photographs.</p>
+      </div>
+      <div class="filters" id="filters"></div>
+      <div class="gallery" id="galleryFeed"></div>
+    </section>
 
     <section class="footer-cta">
-      <h2>Let's connect.</h2>
+      <h2>Let's build something together.</h2>
       <p>Open to collaborations, interviews, and conversations about startups, marketing, and student-led innovation in Bangladesh.</p>
       <div class="footer-actions">
         <a class="btn-light" href="mailto:mhfarabi09@gmail.com">Mail</a>
@@ -592,10 +610,11 @@
       'images/cert4.png', 'images/cert5.png', 'images/cert6.png'
     ];
 
-    /* ── Video showcase (preloads in background while user reads above) ── */
+    /* ── Video showcase ── */
     const videoGrid = document.getElementById('videoGrid');
     let activeVideo = null;
     const videosReady = new Set();
+    const videosStarted = new Set();
 
     SHOWCASE_VIDEOS.forEach((v, i) => {
       videoGrid.innerHTML += `
@@ -605,8 +624,6 @@
           <div class="video-item__overlay"><span class="video-item__play">▶</span></div>
         </div>`;
     });
-
-    const videosStarted = new Set();
 
     function preloadShowcaseVideos() {
       SHOWCASE_VIDEOS.forEach((meta, i) => {
@@ -621,7 +638,6 @@
         vid.load();
       });
     }
-
     preloadShowcaseVideos();
 
     function pauseAllVideos(except) {
@@ -632,15 +648,13 @@
           item.classList.remove('is-playing');
         }
       });
-      if (except) activeVideo = except;
-      else activeVideo = null;
+      activeVideo = except || null;
     }
 
     async function playVideoItem(item) {
       const vid = item.querySelector('video');
       const idx = +item.dataset.index;
       const meta = SHOWCASE_VIDEOS[idx];
-
       pauseAllVideos(vid);
 
       if (!vid.dataset.loaded) {
@@ -652,10 +666,7 @@
             vid.addEventListener('canplay', resolve, { once: true });
             vid.addEventListener('error', reject, { once: true });
             vid.load();
-          }).catch(() => {
-            item.classList.remove('is-loading');
-            return;
-          });
+          }).catch(() => { item.classList.remove('is-loading'); return; });
         }
         item.classList.remove('is-loading');
       }
@@ -693,206 +704,173 @@
       });
     });
 
-    /* ── Certificate carousel ── */
-    const certTrack = document.getElementById('certTrack');
-    const certDots = document.getElementById('certDots');
-    let certIndex = 0;
-
+    /* ── Certificate grid ── */
+    const certGrid = document.getElementById('certGrid');
     CERTIFICATES.forEach((src, i) => {
-      certTrack.innerHTML += `
-        <div class="cert-slide">
-          <img src="${src}" alt="Certificate ${i + 1}" loading="${i === 0 ? 'eager' : 'lazy'}" decoding="async">
+      certGrid.innerHTML += `
+        <div class="cert-item" data-cert="${i}" tabindex="0" role="button" aria-label="View certificate ${i + 1}">
+          <img src="${src}" alt="Certificate ${i + 1}" loading="${i < 3 ? 'eager' : 'lazy'}" decoding="async">
         </div>`;
-      certDots.innerHTML += `<button class="cert-dot${i === 0 ? ' active' : ''}" data-index="${i}" aria-label="Go to certificate ${i + 1}"></button>`;
-    });
-
-    function goToCert(i) {
-      certIndex = (i + CERTIFICATES.length) % CERTIFICATES.length;
-      certTrack.style.transform = `translateX(-${certIndex * 100}%)`;
-      certDots.querySelectorAll('.cert-dot').forEach((d, j) => d.classList.toggle('active', j === certIndex));
-    }
-
-    document.getElementById('certPrev').addEventListener('click', () => goToCert(certIndex - 1));
-    document.getElementById('certNext').addEventListener('click', () => goToCert(certIndex + 1));
-    certDots.addEventListener('click', e => {
-      const dot = e.target.closest('.cert-dot');
-      if (dot) goToCert(+dot.dataset.index);
     });
 
     const POSTS = [
       {
-        id: 'bb26', num: '01',
+        id: 'bb26',
         title: 'Breaking Brand 2026 — Grand Finale',
         category: 'leadership', catLabel: 'Leadership / Breaking Brand',
         date: 'Recent',
         images: [41, 42, 40],
-        likes: 2, comments: 0,
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['1,700+ participants', '415 teams', '40+ sponsors', '9+ TV channels', '84-member team'],
         text: 'The curtains closed on the Grand Finale of Breaking Brand 2026. We orchestrated outreach bringing together 1,700+ brilliant undergraduates across 415 teams, featured across 9+ major television news channels, and secured sponsorships from 40+ partners including SQ Group, Walton, and Pubali Bank PLC — with a custom-built interactive Judges Dashboard for 40+ industry-renowned judges.'
       },
       {
-        id: 'kormo', num: '02',
+        id: 'kormo',
         title: 'Entrepret Season 3 Champion — Team Kormo',
         category: 'competition', catLabel: 'Competition / Entrepreneurship',
         date: '1 month ago',
         images: [34, 37, 36, 35, 38, 33, 32],
-        likes: 75, comments: 4,
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['616 teams beaten', 'BDT 2,50,000 prize', '25+ universities', 'Radisson Blu finale'],
         text: 'Team Kormo emerged as Champion of Entrepret Season 3 organized by NSU YES!, rising to the top among 616 teams from 25+ universities. Kormo is building a localized freelancing platform bridging emerging local talent with businesses needing flexible skills — judged by Kashef R. Rahman, Zia Ashraf, and Mohammad Mizanur Rahman at the grand finale.'
       },
       {
-        id: 'jufbc', num: '03',
+        id: 'jufbc',
         title: 'Mentorship Session — Biztigation by JUFBC',
         category: 'leadership', catLabel: 'Leadership / Session',
         date: '7 months ago',
         images: [31],
-        likes: 16, comments: 0,
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['Jahangirnagar University Finance & Banking Club'],
         text: 'Excited for taking the session tonight. Thank you Jahangirnagar University Finance & Banking Club (JUFBC).'
       },
       {
-        id: 'president', num: '04',
+        id: 'president',
         title: 'President — IBA-JU Business Club 2025–26',
         category: 'leadership', catLabel: 'Leadership / IBA-JU BC',
         date: '8 months ago',
         images: [30],
-        likes: 37, comments: 4,
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['Session 2025–26', 'Break barriers'],
         text: 'Honored as President of IBA-JU Business Club Official for the session of 2025–26. Break barriers that you never thought you could — a journey carved with hard work, pure vision, and absolute passion.'
       },
       {
-        id: 'armygolf', num: '05',
+        id: 'armygolf',
         title: 'Intra Competition Finale & AGM at Army Golf Club',
         category: 'leadership', catLabel: 'Leadership / IBA-JU BC',
         date: '8 months ago',
         images: ['ext1.jpg', 28, 'ext2.jpg', 26, 29, 24, 23],
-        likes: 55, comments: 7,
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['Army Golf Club', 'CXO-level judges', 'AGM 2025'],
         text: 'The only university club in Bangladesh that organizes its Intra Competition Finale at the Army Golf Club — with CXO-level judges and guests from renowned companies and MNCs, followed by the Annual General Meeting 2025 where the new executive panel was appointed.'
       },
       {
-        id: 'agentx', num: '06',
+        id: 'agentx',
         title: '1st Place — AgentX AI Prompt Engineering',
         category: 'competition', catLabel: 'Competition / AI',
         date: '8 months ago',
         images: [21, 19, 18],
-        likes: 27, comments: 0,
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['#1 across JU (14,000 students)', '450+ competitors', 'Microsoft & NetCom'],
         text: 'Secured 1st place across Jahangirnagar University (14,000 students) in the AgentX AI Prompt Engineering Competition by NetCom Learning Bangladesh and Microsoft, competing with 450+ brilliant minds from every department including CSE and IIT. A proud moment to represent IBA-JU.'
       },
       {
-        id: 'tedx', num: '07',
+        id: 'tedx',
         title: 'TEDx Jahangirnagar University',
         category: 'leadership', catLabel: 'Leadership / TEDx',
         date: '1 year ago',
         images: [17],
-        likes: 19, comments: 0,
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['Long-awaited milestone'],
         text: 'TEDx Jahangirnagar University is something I wanted to see happen for so long.'
       },
       {
-        id: 'bizcase', num: '08',
+        id: 'bizcase',
         title: '1st Runner-Up — BizCase 2025',
         category: 'competition', catLabel: 'Competition / Business Case',
         date: '1 year ago',
         images: [16],
-        likes: 35, comments: 2,
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['270+ teams in R1', 'Top 10 finale', 'Team Freak Fein'],
         text: '1st Runner-Up in BizCase 2025, a National Inter-University Business Competition by JKKNIU-SDC. Competed against 270+ teams, stood out among top 80 in semifinals, and proved business acumen among the 10 best teams at the grand finale.'
       },
       {
-        id: 'bb25', num: '09',
+        id: 'bb25',
         title: 'Breaking Brand 2025 — General Manager & Branding Lead',
         category: 'leadership', catLabel: 'Leadership / Breaking Brand & IBA-JU BC',
         date: '1 year ago',
         video: 'images/video.mp4',
-        images: [12],
-        likes: 34, comments: 8,
+        poster: 'images/thumb1.png',
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['400+ teams', '30+ sponsors', '250K+ reach', 'React judging portal', 'Branding & Digital GM'],
         text: 'Led outreach for 400+ team registrations with 1,600+ participants from 20+ universities as General Manager of Breaking Brand 2025. Managed 30+ sponsors, hosted the grand finale at Six Seasons Hotel in front of 200+ attendees, and built a judging portal with JavaScript, React, and Supabase — while ibajubc.org reached 200,000+ visitors. Also stepped into the role of General Manager of Branding and Digital at IBA-JU Business Club Official, driving innovation and elevating the club alongside an incredible team.'
       },
       {
-        id: 'bom24', num: '10',
+        id: 'bom24',
         title: 'Battle of Minds 2024',
         category: 'competition', catLabel: 'Competition / BAT',
         date: '1 year ago',
         images: [13],
-        likes: 15, comments: 0,
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['BAT Head Office'],
         text: 'At BAT HO for the session on Battle of Minds 2024.'
       },
       {
-        id: 'bb24', num: '11',
+        id: 'bb24',
         title: 'Breaking Brand 2024 — Team Victory',
         category: 'leadership', catLabel: 'Leadership / Breaking Brand',
         date: '2 years ago',
         images: [10],
-        likes: 19, comments: 0,
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['National competition', 'Executive body'],
         text: 'Teamwork and cross-functional collaboration powered Breaking Brand 2024 — a national brand-building business case competition that exceeded expectations according to all judges and a huge majority of participants. Here\'s to the coolest team ever.'
       },
       {
-        id: 'commuite', num: '12',
+        id: 'commuite',
         title: 'Host — Commuite Episode 02',
         category: 'leadership', catLabel: 'Leadership / Fintech',
         date: '2 years ago',
         images: [8, 9],
-        likes: 14, comments: 0,
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['Communic IBA-JU', 'MFS & Fintech', 'bKash guest'],
         text: 'Hosted Commuite Episode 02 organized by the communication club of IBA-JU — Communic — learning valuable Mobile Financial Services and Fintech insights from Md Asiful Islam, Merchant Development Manager at bKash Limited.'
       },
       {
-        id: 'iut', num: '13',
+        id: 'iut',
         title: 'National Business Case — IUT',
         category: 'competition', catLabel: 'Competition / Business Case',
         date: '2 years ago',
         images: [7],
-        likes: 10, comments: 1,
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['Automotive industry case', 'IUT Dhaka'],
         text: 'With the team while pitching our idea in front of judges at a national business case competition at IUT — planning and creating the solution to a case related to the problems of the automotive industry in Bangladesh.'
       },
       {
-        id: 'freshers', num: '14',
+        id: 'freshers',
         title: "Freshers' Reception — IBA-JU 32nd Batch",
         category: 'leadership', catLabel: 'Leadership / Hosting',
         date: '2 years ago',
         images: [5, 6],
-        likes: 4, comments: 2,
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['32nd Batch', 'March 2024', 'Co-hosted'],
         text: "Hosted the Freshers' for the 32nd Batch at IBA-JU alongside Fatin Anjum Aishee on 5th March, 2024 — the second event hosted at IBA-JU, with a long way to go and a lot still to learn."
       },
       {
-        id: 'bom23', num: '15',
+        id: 'bom23',
         title: 'Battle of Minds 2023',
         category: 'competition', catLabel: 'Competition / BAT',
         date: '2 years ago',
         images: [4],
-        likes: 4, comments: 0,
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['#battleofminds2023'],
         text: 'Battle of Minds 2023 at BAT.'
       },
       {
-        id: 'hult', num: '16',
+        id: 'hult',
         title: 'Hult Prize 2023 — Mumbai Summit',
         category: 'competition', catLabel: 'Competition / Hult Prize',
         date: '3 years ago',
         images: [3, 2],
-        likes: 18, comments: 1,
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['Mumbai, India', 'SDA Bocconi', 'Sustainable fashion', 'Social enterprise'],
         text: "An incredible journey at the Hult Prize Entrepreneurs' Summit in SDA Bocconi Asia Center, Mumbai — showcasing passion for innovation and sustainable fashion, funded by IBA-JU. Changing the world through social enterprise at Gopal Sharma Schools, Mumbai."
@@ -904,24 +882,20 @@
       { id: 'competition', label: 'Competitions' }
     ];
 
-    /* ── Render media (vertical stack) ── */
     function renderMedia(post) {
-      let html = '';
-
       if (post.video) {
-        html += `
+        return `
           <div class="entry-media entry-media--video" data-video>
-            <video muted preload="metadata" poster="${post.images?.length ? img(post.images[0]) : 'images/thumb1.png'}" playsinline>
+            <video muted preload="metadata" poster="${post.poster || 'images/thumb1.png'}" playsinline>
               <source src="${post.video}" type="video/mp4">
             </video>
             <div class="entry-media__play"><span>▶</span></div>
           </div>`;
       }
-
-      if (!post.images || !post.images.length) return html;
+      if (!post.images || !post.images.length) return '';
 
       const [hero, ...rest] = post.images;
-      html += `<div class="entry-media">`;
+      let html = `<div class="entry-media">`;
       html += `<img class="entry-media__hero" src="${img(hero)}" alt="${post.title}" loading="lazy" data-gallery="${post.id}" data-idx="0">`;
 
       if (rest.length === 1) {
@@ -940,12 +914,11 @@
       return html;
     }
 
-    /* ── Render gallery ── */
     const feed = document.getElementById('galleryFeed');
     POSTS.forEach(post => {
       feed.innerHTML += `
         <article class="entry" id="post-${post.id}" data-category="${post.category}">
-          <div class="entry-marker">${post.num}</div>
+          <div class="entry-marker">01</div>
           <div class="entry-card">
             ${renderMedia(post)}
             <div class="entry-body">
@@ -964,21 +937,26 @@
         </article>`;
     });
 
-    /* ── Filters ── */
     const filtersEl = document.getElementById('filters');
     FILTERS.forEach((f, i) => {
       filtersEl.innerHTML += `<button class="filter-btn${i === 0 ? ' active' : ''}" data-filter="${f.id}">${f.label}</button>`;
     });
 
+    function renumberVisible() {
+      let n = 1;
+      document.querySelectorAll('.entry:not(.hidden)').forEach(el => {
+        el.querySelector('.entry-marker').textContent = String(n).padStart(2, '0');
+        n++;
+      });
+    }
+
     function applyFilter(cat) {
-      document.querySelectorAll('.entry').forEach((el, i) => {
+      document.querySelectorAll('.entry').forEach(el => {
         const show = el.dataset.category === cat;
         el.classList.toggle('hidden', !show);
-        if (show) {
-          el.style.transitionDelay = `${i * 0.04}s`;
-          el.classList.add('visible');
-        }
+        if (show) el.classList.add('visible');
       });
+      renumberVisible();
     }
 
     applyFilter('leadership');
@@ -991,7 +969,6 @@
       applyFilter(btn.dataset.filter);
     });
 
-    /* ── Video play ── */
     document.querySelectorAll('[data-video]').forEach(el => {
       el.addEventListener('click', () => {
         const v = el.querySelector('video');
@@ -1007,12 +984,14 @@
     const lightbox = document.getElementById('lightbox');
     const lbImg = document.getElementById('lbImg');
     const lbCaption = document.getElementById('lbCaption');
-    let lbImages = [], lbIndex = 0, lbTitle = '';
+    let lbImages = [], lbIndex = 0, lbTitle = '', lbIsCert = false;
 
-    function openLightbox(images, index, title) {
-      lbImages = images; lbIndex = index; lbTitle = title;
-      lbImg.src = img(images[index]);
-      lbCaption.textContent = `${title} · ${index + 1} / ${images.length}`;
+    function openLightbox(images, index, title, isCert = false) {
+      lbImages = images; lbIndex = index; lbTitle = title; lbIsCert = isCert;
+      lbImg.src = isCert ? images[index] : img(images[index]);
+      lbCaption.textContent = isCert
+        ? `Certificate · ${index + 1} / ${images.length}`
+        : `${title} · ${index + 1} / ${images.length}`;
       lightbox.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -1022,15 +1001,22 @@
     }
     function lbNav(dir) {
       lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
-      lbImg.src = img(lbImages[lbIndex]);
-      lbCaption.textContent = `${lbTitle} · ${lbIndex + 1} / ${lbImages.length}`;
+      lbImg.src = lbIsCert ? lbImages[lbIndex] : img(lbImages[lbIndex]);
+      lbCaption.textContent = lbIsCert
+        ? `Certificate · ${lbIndex + 1} / ${lbImages.length}`
+        : `${lbTitle} · ${lbIndex + 1} / ${lbImages.length}`;
     }
 
     document.addEventListener('click', e => {
+      const certEl = e.target.closest('[data-cert]');
+      if (certEl) {
+        openLightbox(CERTIFICATES, +certEl.dataset.cert, 'Certificate', true);
+        return;
+      }
       const imgEl = e.target.closest('[data-gallery]');
       if (!imgEl) return;
       const post = POSTS.find(p => p.id === imgEl.dataset.gallery);
-      if (!post || !post.images.length) return;
+      if (!post || !post.images?.length) return;
       openLightbox(post.images, +imgEl.dataset.idx, post.title);
     });
 
@@ -1045,7 +1031,6 @@
       if (e.key === 'ArrowRight') lbNav(1);
     });
 
-    /* ── Scroll reveal ── */
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1056,7 +1041,6 @@
     }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
     document.querySelectorAll('.entry').forEach(el => observer.observe(el));
 
-    /* ── Nav scroll ── */
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 24);
