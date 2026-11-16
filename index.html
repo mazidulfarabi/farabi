@@ -357,6 +357,21 @@
     .entry-media__hero { aspect-ratio: 4/3; object-fit: cover; }
     .entry-media__hero--square { aspect-ratio: 1 / 1; }
     .entry-media__hero--landscape { aspect-ratio: 16 / 10; }
+    .entry-media--split {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3px;
+    }
+    .entry-media--split img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+      transition: opacity 0.3s;
+    }
+    .entry-media--split img:hover { opacity: 0.92; }
+    .entry-media--focus-logo { object-position: 25% center; }
     .entry-media__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; }
     .entry-media__grid img { aspect-ratio: 1; object-fit: cover; }
     .entry-media__grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
@@ -747,8 +762,8 @@
         title: 'Sales Leadership Development Intern — Dabur Bangladesh',
         category: 'leadership', catLabel: 'Corporate / Dabur Bangladesh',
         date: 'Recent',
-        images: ['dabur-intern.jpg'],
-        heroAspect: 'landscape',
+        images: ['dabur-intern.jpg', 'dabur-team.jpg'],
+        layout: 'split',
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['Pioneer Flagship Internship Programme', '1 of Only 4 Specialized Interns Across Bangladesh', 'Sales Leadership', 'FMCG'],
         text: 'Selected for the pioneer flagship internship programme at Dabur Bangladesh as one of the only 4 specialized interns chosen across all of Bangladesh. Spearheading sales leadership development, route-to-market strategies, and FMCG commercial execution.'
@@ -783,6 +798,17 @@
         link: 'https://www.linkedin.com/in/mazidulfarabi/',
         chips: ['Session 2025–26', 'Break barriers'],
         text: 'Honored as President of IBA-JU Business Club Official for the session of 2025–26. Break barriers that you never thought you could — a journey carved with hard work, pure vision, and absolute passion.'
+      },
+      {
+        id: 'swc',
+        title: 'Vice President — IBA-JU Social Welfare Club',
+        category: 'leadership', catLabel: 'Leadership / IBA-JU SWC',
+        date: 'Session 2025',
+        images: ['swc-vp.jpg'],
+        heroAspect: 'square',
+        link: 'https://www.linkedin.com/in/mazidulfarabi/',
+        chips: ['Vice President', 'Executive Committee 2025', 'IBA-JU SWC', 'Social Impact & Welfare'],
+        text: 'Appointed as Vice President of the Institute of Business Administration, Jahangirnagar University Social Welfare Club (IBA-JU SWC) for the Executive Committee of 2025. Leading student welfare drives, philanthropic initiatives, and community-centric social impact campaigns across campus and beyond.'
       },
       {
         id: 'armygolf',
@@ -924,6 +950,15 @@
           </div>`;
       }
       if (!post.images || !post.images.length) return '';
+
+      if (post.layout === 'split') {
+        return `
+          <div class="entry-media entry-media--split">
+            ${post.images.map((n, i) =>
+              `<img src="${img(n)}" alt="${post.title}" loading="lazy" data-gallery="${post.id}" data-idx="${i}" class="${i === 0 ? 'entry-media--focus-logo' : ''}">`
+            ).join('')}
+          </div>`;
+      }
 
       const [hero, ...rest] = post.images;
       let html = `<div class="entry-media">`;
