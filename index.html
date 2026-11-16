@@ -355,6 +355,8 @@
     }
     .entry-media img:hover { opacity: 0.92; }
     .entry-media__hero { aspect-ratio: 4/3; object-fit: cover; }
+    .entry-media__hero--square { aspect-ratio: 1 / 1; }
+    .entry-media__hero--landscape { aspect-ratio: 16 / 10; }
     .entry-media__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; }
     .entry-media__grid img { aspect-ratio: 1; object-fit: cover; }
     .entry-media__grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
@@ -741,6 +743,28 @@
         text: 'Team Kormo emerged as Champion of Entrepret Season 3 organized by NSU YES!, rising to the top among 616 teams from 25+ universities. Kormo is building a localized freelancing platform bridging emerging local talent with businesses needing flexible skills — judged by Kashef R. Rahman, Zia Ashraf, and Mohammad Mizanur Rahman at the grand finale.'
       },
       {
+        id: 'dabur',
+        title: 'Sales Leadership Development Intern — Dabur Bangladesh',
+        category: 'leadership', catLabel: 'Corporate / Dabur Bangladesh',
+        date: 'Recent',
+        images: ['dabur-intern.jpg'],
+        heroAspect: 'landscape',
+        link: 'https://www.linkedin.com/in/mazidulfarabi/',
+        chips: ['Pioneer Flagship Internship Programme', '1 of Only 4 Specialized Interns Across Bangladesh', 'Sales Leadership', 'FMCG'],
+        text: 'Selected for the pioneer flagship internship programme at Dabur Bangladesh as one of the only 4 specialized interns chosen across all of Bangladesh. Spearheading sales leadership development, route-to-market strategies, and FMCG commercial execution.'
+      },
+      {
+        id: 'dacoit',
+        title: 'Judge (Round 1) — Dacoit of Excellence 3.0',
+        category: 'leadership competition', catLabel: 'Judging / Dacoit of Excellence',
+        date: 'Recent',
+        images: ['dacoit-judge.jpg'],
+        heroAspect: 'square',
+        link: 'https://www.linkedin.com/in/mazidulfarabi/',
+        chips: ['Round 1 Judge', 'JnU Career Club', 'SkyBuy Presents', 'Dabur Bangladesh'],
+        text: 'Invited as Round 1 Judge for Dacoit of Excellence 3.0, a premier national business case competition organized by Jagannath University Career Club (JnUCC), presented by SkyBuy and co-powered by United Financial Trading Company Limited — evaluating innovative case presentations and business solutions representing Dabur Bangladesh.'
+      },
+      {
         id: 'jufbc',
         title: 'Mentorship Session — Biztigation by JUFBC',
         category: 'leadership', catLabel: 'Leadership / Session',
@@ -903,7 +927,8 @@
 
       const [hero, ...rest] = post.images;
       let html = `<div class="entry-media">`;
-      html += `<img class="entry-media__hero" src="${img(hero)}" alt="${post.title}" loading="lazy" data-gallery="${post.id}" data-idx="0">`;
+      const heroClass = post.heroAspect ? `entry-media__hero entry-media__hero--${post.heroAspect}` : 'entry-media__hero';
+      html += `<img class="${heroClass}" src="${img(hero)}" alt="${post.title}" loading="lazy" data-gallery="${post.id}" data-idx="0">`;
 
       if (rest.length === 1) {
         html += `<img src="${img(rest[0])}" alt="" loading="lazy" data-gallery="${post.id}" data-idx="1">`;
@@ -958,22 +983,22 @@
     }
 
     function applyFilter(cat) {
-  document.querySelectorAll('.entry').forEach(el => {
-    // Show the element if the category is 'all' OR if it matches the dataset category
-    const show = (cat === 'all') || (el.dataset.category === cat);
-    
-    el.classList.toggle('hidden', !show);
-    
-    if (show) {
-      el.classList.add('visible');
-    } else {
-      // Good practice to ensure 'visible' is removed when hidden
-      el.classList.remove('visible'); 
+      document.querySelectorAll('.entry').forEach(el => {
+        // Show the element if the category is 'all' OR if it matches the dataset category
+        const show = (cat === 'all') || el.dataset.category.split(' ').includes(cat);
+        
+        el.classList.toggle('hidden', !show);
+        
+        if (show) {
+          el.classList.add('visible');
+        } else {
+          // Good practice to ensure 'visible' is removed when hidden
+          el.classList.remove('visible'); 
+        }
+      });
+      
+      renumberVisible();
     }
-  });
-  
-  renumberVisible();
-}
 
     applyFilter('all');
 
